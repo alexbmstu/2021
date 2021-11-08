@@ -347,7 +347,7 @@ prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
 
 Запустите линковку проекта в сессии screen:
 
-    v++ -l -t hw -o <Путь к файлу vinc.xclbin> -f xilinx_u200_xdma_201830_2 <Путь к \*.xo> --config <Путь к конфигурационному файлу.cfg>
+    v++ -l -t hw -o <Путь к файлу vinc.xclbin> -f xilinx_u200_xdma_201830_2 <Путь к *.xo> --config <Путь к конфигурационному файлу.cfg>
 
   
 
@@ -362,7 +362,7 @@ prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
  devices.resize(1);
  cl::Device device = devices[0]; //Выбираем первую найденную карту
  cl::Context context(device, NULL, NULL, NULL, &err);
- char \*fileBuf = read_binary_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
+ char *fileBuf = read_binary_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
  cl::Program::Binaries bins{{fileBuf, fileBufSize}};
  cl::Program program(context, devices, bins, NULL, &err); //Программируем ПЛИС
 ```
@@ -586,7 +586,7 @@ prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
 
 ```
 extern "C" {
-    void example(int \*source_buf, int \*result_buf, int count); //указатели на буферы и кол-во единиц данных
+    void example(int *source_buf, int *result_buf, int count); //указатели на буферы и кол-во единиц данных
 }
 ```
 
@@ -597,9 +597,9 @@ extern "C" {
 ```
  extern "C" {
  void vadd(
- const unsigned int \*A_buf, 	// Массив 1 (только чтение)
- const unsigned int \*B_buf, 	// Массив 2 (только чтение)
- unsigned int \*R_buf,         	// Массив результата (чтение и запись)
+ const unsigned int *A_buf, 	// Массив 1 (только чтение)
+ const unsigned int *B_buf, 	// Массив 2 (только чтение)
+ unsigned int *R_buf,         	// Массив результата (чтение и запись)
  int count                 		// Количество чисел
  )
  {
@@ -634,12 +634,12 @@ extern "C" {
 
 // Объявление заголовков  сервисных вызовов
 std::vector<cl::Device> get_xilinx_devices(); //Формирование списка доступных устройств
-char \*read_binary_file(const std::string &xclbin_file_name, unsigned &nb); //Чтение xclbin файла
+char *read_binary_file(const std::string &xclbin_file_name, unsigned &nb); //Чтение xclbin файла
 
 // ------------------------------------------------------------------------------------
 // Основная программа
 // ------------------------------------------------------------------------------------
-int main(int argc, char \*\*argv)
+int main(int argc, char **argv)
 {
  // ------------------------------------------------------------------------------------
  // Этап 1: Инициализация OpenCL окружения
@@ -651,7 +651,7 @@ int main(int argc, char \*\*argv)
  devices.resize(1);
  cl::Device device = devices[0]; //Выбираем первую найденную карту
  cl::Context context(device, NULL, NULL, NULL, &err);
- char \*fileBuf = read_binary_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
+ char *fileBuf = read_binary_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
  cl::Program::Binaries bins{{fileBuf, fileBufSize}};
  cl::Program program(context, devices, bins, NULL, &err); //Программируем ПЛИС
  cl::CommandQueue q(context, device, CL_QUEUE_PROFILING_ENABLE, &err); //Создаем очередь команд
@@ -661,9 +661,9 @@ int main(int argc, char \*\*argv)
  // Этап 2: Создаем буферы и отображаем их на устройство
  // ------------------------------------------------------------------------------------
  // Выделяем память под буферы в ОЗУ
- cl::Buffer A_buf(context, CL_MEM_READ_ONLY, sizeof(int) \* INT_COUNT, NULL, &err);
- cl::Buffer B_buf(context, CL_MEM_READ_ONLY, sizeof(int) \* INT_COUNT, NULL, &err);
- cl::Buffer R_buf(context, CL_MEM_WRITE_ONLY, sizeof(int) \* INT_COUNT, NULL, &err);
+ cl::Buffer A_buf(context, CL_MEM_READ_ONLY, sizeof(int) * INT_COUNT, NULL, &err);
+ cl::Buffer B_buf(context, CL_MEM_READ_ONLY, sizeof(int) * INT_COUNT, NULL, &err);
+ cl::Buffer R_buf(context, CL_MEM_WRITE_ONLY, sizeof(int) * INT_COUNT, NULL, &err);
 
  // Отображаем буферы на параметры функции ядра
  krnl_vector_add.setArg(0, A_buf);
@@ -671,9 +671,9 @@ int main(int argc, char \*\*argv)
  krnl_vector_add.setArg(2, R_buf);
 
  // Отображаем буферы на память устройства для организации прямого доступа к памяти
- int \*A = (int \*)q.enqueueMapBuffer(A_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(int) \* INT_COUNT);
- int \*B = (int \*)q.enqueueMapBuffer(B_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(int) \* INT_COUNT);
- int \*R = (int \*)q.enqueueMapBuffer(R_buf, CL_TRUE, CL_MAP_WRITE | CL_MAP_READ, 0, sizeof(int) \* INT_COUNT);
+ int *A = (int *)q.enqueueMapBuffer(A_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(int) * INT_COUNT);
+ int *B = (int *)q.enqueueMapBuffer(B_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(int) * INT_COUNT);
+ int *R = (int *)q.enqueueMapBuffer(R_buf, CL_TRUE, CL_MAP_WRITE | CL_MAP_READ, 0, sizeof(int) * INT_COUNT);
 
  // Готовим массивы данных для теста 
  for (int i = 0; i < INT_COUNT; i++)
@@ -693,7 +693,7 @@ int main(int argc, char \*\*argv)
  krnl_vector_add.setArg(3, INT_COUNT);
 
  // Копируем содержимое буферов в DDR память ускорительной карты
- q.enqueueMigrateMemObjects({A_buf, B_buf}, 0 /\* 0 means from host\*/);
+ q.enqueueMigrateMemObjects({A_buf, B_buf}, 0 /* 0 means from host*/);
  // Запускаем задачу на исполнение и ждем готовности по прерыванию
  q.enqueueTask(krnl_vector_add);
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
@@ -756,7 +756,7 @@ std::vector<cl::Device> get_xilinx_devices()
  return devices;
 }
 
-char \*read_binary_file(const std::string &xclbin_file_name, unsigned &nb)
+char *read_binary_file(const std::string &xclbin_file_name, unsigned &nb)
 {
  if (access(xclbin_file_name.c_str(), R_OK) != 0)
     {
@@ -769,7 +769,7 @@ char \*read_binary_file(const std::string &xclbin_file_name, unsigned &nb)
     bin_file.seekg(0, bin_file.end);
  nb = bin_file.tellg();
  bin_file.seekg(0, bin_file.beg);
- char \*buf = new char[nb];
+ char *buf = new char[nb];
  bin_file.read(buf, nb);
  return buf;
 }
@@ -1034,7 +1034,7 @@ const int DATA_SIZE = 1 << 10;
 
 // ------------------------------------------------------------------------------------
 
-void var001_no_pragmas(int\* c, const int\* a, const int\* b, const int len) {
+void var001_no_pragmas(int* c, const int* a, const int* b, const int len) {
  int tmp = 0;
  for (int i = 0; i < len; i++) {
  tmp = tmp + a[i];
@@ -1061,7 +1061,7 @@ void verify(const vector<int, aligned_allocator<int> >& gold, const vector<int, 
  }
 }
 
-int main(int argc, char\*\* argv) {
+int main(int argc, char** argv) {
  if (argc != 2) {
  std::cout << "Usage: " << argv[0] << " <XCLBIN File>" << std::endl;
  return EXIT_FAILURE;
@@ -1070,7 +1070,7 @@ int main(int argc, char\*\* argv) {
  std::string binaryFile = argv[1];
 
  // Вычисление размера массива
- size_t size_in_bytes = DATA_SIZE \* sizeof(int);
+ size_t size_in_bytes = DATA_SIZE * sizeof(int);
  cl_int err;
  cl::CommandQueue q;
  cl::Context context;
@@ -1142,7 +1142,7 @@ int main(int argc, char\*\* argv) {
  OCL_CHECK(err, err = kernel_var001_no_pragmas.setArg(3, DATA_SIZE));
 
  // Копируем содержимое буферов в DDR память ускорительной карты
- OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_a, buffer_b}, 0 /\* 0 means from host\*/));
+ OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_a, buffer_b}, 0 /* 0 means from host*/));
 
  cl::Event event;
  uint64_t nstimestart, nstimeend;
