@@ -5,7 +5,7 @@
 # Организаторы хакатона
 
 
-|   <img src="assets/aleksei_popov.png" width="150"> |  <img src="assets/stanislav_ibragimov.plus.png" width="150">  |  <img src="assets/egor_dubrovin.png" width="150">  |
+|   <img src="assets/aleksei_popov.png" width="150"> |  <img src="assets/stanislav_ibragimov.png" width="150">  |  <img src="assets/egor_dubrovin.png" width="150">  |
 |: --------------------------------------- :|: --------------------------------------- :|
 |   [Алексей Попов](mailto:alexpopov@bmstu.ru), <br> *МГТУ им. Н.Э.Баумана*   |   [Станислав  Ибрагимов](mailto:ibragimov@bmstu.ru)  <br>  *МГТУ им. Н.Э.Баумана*    |   [Егор Дубровин](mailto:dubrovin.en@ya.ru)  <br>  *МГТУ им. Н.Э.Баумана*    |
  
@@ -21,7 +21,7 @@
 
 Практикум состоит из трех этапов:
 
-**Лабораторная работа №1** **Методологи****я** **разработки и верификации ускорителей вычислений на платформе Xilinx Alveo**
+**Лабораторная работа №1 Методология разработки и верификации ускорителей вычислений на платформе Xilinx Alveo**
 
 **Лабораторная работа №2. Разработка ускорителей вычислений средствами САПР высокоуровневого синтеза Xilinx Vitis HLS**
 
