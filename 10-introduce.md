@@ -389,8 +389,8 @@ prop=run.impl\_1.STEPS.ROUTE\_DESIGN.ARGS.DIRECTIVE=Explore
 | 4       | R[i] = max(A[i], B[i])                       | SLR2,DDR[3]      |
 | 5       | R[i] = (A[i] + 3) / 2                        | SLR0,DDR[0]      |
 | 6       | R[i] = A[i] & 0xFEDCBA9876543210             | SLR1,DDR[1]      |
-| 7       | R[i] = A[i] \\| ~ 0xf                        | SLR1,DDR[2]      |
-| 8       | R[i] = (A[i] + 10) \\| (255<<32)             | SLR2,DDR[3]      |
+| 7       | R[i] = A[i] & ~ 0xf                          | SLR1,DDR[2]      |
+| 8       | R[i] = (A[i] + 10) & (255<<32)               | SLR2,DDR[3]      |
 | 9       | R[i] = min (A[i] - 4, 5)                     | SLR0,DDR[0]      |
 | 10      | R[i] = A[i]/8 + 14                           | SLR1,DDR[1]      |
 | 11      | R[i] = 25 + A[i]/2                           | SLR1,DDR[2]      |
