@@ -309,20 +309,20 @@
 
 ```
 [connectivity]
-nk=rtl\_kernel\_vinc:2:vinc0.vinc1
+nk=rtl_kernel_vinc:2:vinc0.vinc1
 slr=vinc0:SLR0
-sp=vinc0.axi4\_0:DDR[0]
-sp=vinc0.axi4\_1:PLRAM[0]
+sp=vinc0.axi4_0:DDR[0]
+sp=vinc0.axi4_1:PLRAM[0]
 slr=vinc1:SLR1
-sp=vinc1.axi4\_0:DDR[2]
-sp=vinc1.axi4\_1:PLRAM[1]
+sp=vinc1.axi4_0:DDR[2]
+sp=vinc1.axi4_1:PLRAM[1]
 
 [vivado]
-prop=run.impl\_1.STEPS.OPT\_DESIGN.ARGS.DIRECTIVE=Explore
-prop=run.impl\_1.STEPS.PLACE\_DESIGN.ARGS.DIRECTIVE=Explore
-prop=run.impl\_1.STEPS.PHYS\_OPT\_DESIGN.IS\_ENABLED=true
-prop=run.impl\_1.STEPS.PHYS\_OPT\_DESIGN.ARGS.DIRECTIVE=AggressiveExplore
-prop=run.impl\_1.STEPS.ROUTE\_DESIGN.ARGS.DIRECTIVE=Explore
+prop=run.impl_1.STEPS.OPT_DESIGN.ARGS.DIRECTIVE=Explore
+prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=Explore
+prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.IS_ENABLED=true
+prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE=AggressiveExplore
+prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
 ```  
 
 Конфигурационный файл занесите в отчет.
@@ -347,7 +347,7 @@ prop=run.impl\_1.STEPS.ROUTE\_DESIGN.ARGS.DIRECTIVE=Explore
 
 Запустите линковку проекта в сессии screen:
 
-    v++ -l -t hw -o <Путь к файлу vinc.xclbin> -f xilinx\_u200\_xdma\_201830\_2 <Путь к \*.xo> --config <Путь к конфигурационному файлу.cfg>
+    v++ -l -t hw -o <Путь к файлу vinc.xclbin> -f xilinx_u200_xdma_201830_2 <Путь к \*.xo> --config <Путь к конфигурационному файлу.cfg>
 
   
 
@@ -355,14 +355,14 @@ prop=run.impl\_1.STEPS.ROUTE\_DESIGN.ARGS.DIRECTIVE=Explore
 
   
 ```
- cl\_int err;
+ cl_int err;
  std::string binaryFile = (argc != 2) ? "vinc.xclbin" : argv[1]; //Путь к xclbin задается аргументом 
  unsigned fileBufSize;
- std::vector<cl::Device> devices = get\_xilinx\_devices();
+ std::vector<cl::Device> devices = get_xilinx_devices();
  devices.resize(1);
  cl::Device device = devices[0]; //Выбираем первую найденную карту
  cl::Context context(device, NULL, NULL, NULL, &err);
- char \*fileBuf = read\_binary\_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
+ char \*fileBuf = read_binary_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
  cl::Program::Binaries bins{{fileBuf, fileBufSize}};
  cl::Program program(context, devices, bins, NULL, &err); //Программируем ПЛИС
 ```
@@ -375,7 +375,7 @@ prop=run.impl\_1.STEPS.ROUTE\_DESIGN.ARGS.DIRECTIVE=Explore
 
   
 
-Скопируйте автоматически созданный программный модуль host\_example.cpp в проект <Название проекта>/src. Ознакомьтесь с его содержимым. Выполните сборку проекта Project→Build.
+Скопируйте автоматически созданный программный модуль host_example.cpp в проект <Название проекта>/src. Ознакомьтесь с его содержимым. Выполните сборку проекта Project→Build.
 
   
 
@@ -586,7 +586,7 @@ prop=run.impl\_1.STEPS.ROUTE\_DESIGN.ARGS.DIRECTIVE=Explore
 
 ```
 extern "C" {
-    void example(int \*source\_buf, int \*result\_buf, int count); //указатели на буферы и кол-во единиц данных
+    void example(int \*source_buf, int \*result_buf, int count); //указатели на буферы и кол-во единиц данных
 }
 ```
 
@@ -597,18 +597,18 @@ extern "C" {
 ```
  extern "C" {
  void vadd(
- const unsigned int \*A\_buf, 	// Массив 1 (только чтение)
- const unsigned int \*B\_buf, 	// Массив 2 (только чтение)
- unsigned int \*R\_buf,         	// Массив результата (чтение и запись)
+ const unsigned int \*A_buf, 	// Массив 1 (только чтение)
+ const unsigned int \*B_buf, 	// Массив 2 (только чтение)
+ unsigned int \*R_buf,         	// Массив результата (чтение и запись)
  int count                 		// Количество чисел
  )
  {
- #pragma HLS INTERFACE m\_axi port= A\_buf bundle=aximm1
- #pragma HLS INTERFACE m\_axi port= B\_buf bundle=aximm2
- #pragma HLS INTERFACE m\_axi port= R\_buf bundle=aximm1
+ #pragma HLS INTERFACE m_axi port= A_buf bundle=aximm1
+ #pragma HLS INTERFACE m_axi port= B_buf bundle=aximm2
+ #pragma HLS INTERFACE m_axi port= R_buf bundle=aximm1
   for(int i = 0; i < count; ++i)
   {
-  R\_buf[i] = A\_buf[i] + B\_buf[i];
+  R_buf[i] = A_buf[i] + B_buf[i];
   }
  }
 }
@@ -618,13 +618,13 @@ extern "C" {
 Для взаимодействия с ускорителем можно использовать следующий пример кода хост-системы:
 
 ```cpp
- #define CL\_HPP\_CL\_1\_2\_DEFAULT\_BUILD
- #define CL\_HPP\_TARGET\_OPENCL\_VERSION 120
- #define CL\_HPP\_MINIMUM\_OPENCL\_VERSION 120
- #define CL\_HPP\_ENABLE\_PROGRAM\_CONSTRUCTION\_FROM\_ARRAY\_COMPATIBILITY 1
- #define CL\_USE\_DEPRECATED\_OPENCL\_1\_2\_APIS
+ #define CL_HPP_CL_1_2_DEFAULT_BUILD
+ #define CL_HPP_TARGET_OPENCL_VERSION 120
+ #define CL_HPP_MINIMUM_OPENCL_VERSION 120
+ #define CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY 1
+ #define CL_USE_DEPRECATED_OPENCL_1_2_APIS
 
- #define INT\_COUNT 4096
+ #define INT_COUNT 4096
 
  #include <vector>
  #include <unistd.h>
@@ -633,8 +633,8 @@ extern "C" {
  #include <CL/cl2.hpp>
 
 // Объявление заголовков  сервисных вызовов
-std::vector<cl::Device> get\_xilinx\_devices(); //Формирование списка доступных устройств
-char \*read\_binary\_file(const std::string &xclbin\_file\_name, unsigned &nb); //Чтение xclbin файла
+std::vector<cl::Device> get_xilinx_devices(); //Формирование списка доступных устройств
+char \*read_binary_file(const std::string &xclbin_file_name, unsigned &nb); //Чтение xclbin файла
 
 // ------------------------------------------------------------------------------------
 // Основная программа
@@ -644,42 +644,42 @@ int main(int argc, char \*\*argv)
  // ------------------------------------------------------------------------------------
  // Этап 1: Инициализация OpenCL окружения
  // ------------------------------------------------------------------------------------
- cl\_int err;
+ cl_int err;
  std::string binaryFile = (argc != 2) ? "vadd.xclbin" : argv[1]; //Путь к xclbin задается аргументом 
  unsigned fileBufSize;
- std::vector<cl::Device> devices = get\_xilinx\_devices();
+ std::vector<cl::Device> devices = get_xilinx_devices();
  devices.resize(1);
  cl::Device device = devices[0]; //Выбираем первую найденную карту
  cl::Context context(device, NULL, NULL, NULL, &err);
- char \*fileBuf = read\_binary\_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
+ char \*fileBuf = read_binary_file(binaryFile, fileBufSize); //Читаем xclbin в буфер
  cl::Program::Binaries bins{{fileBuf, fileBufSize}};
  cl::Program program(context, devices, bins, NULL, &err); //Программируем ПЛИС
- cl::CommandQueue q(context, device, CL\_QUEUE\_PROFILING\_ENABLE, &err); //Создаем очередь команд
- cl::Kernel krnl\_vector\_add(program, "vadd", &err); //Создаем экземпляр сервисного Kernel объекта для «vadd»
+ cl::CommandQueue q(context, device, CL_QUEUE_PROFILING_ENABLE, &err); //Создаем очередь команд
+ cl::Kernel krnl_vector_add(program, "vadd", &err); //Создаем экземпляр сервисного Kernel объекта для «vadd»
 
  // ------------------------------------------------------------------------------------
  // Этап 2: Создаем буферы и отображаем их на устройство
  // ------------------------------------------------------------------------------------
  // Выделяем память под буферы в ОЗУ
- cl::Buffer A\_buf(context, CL\_MEM\_READ\_ONLY, sizeof(int) \* INT\_COUNT, NULL, &err);
- cl::Buffer B\_buf(context, CL\_MEM\_READ\_ONLY, sizeof(int) \* INT\_COUNT, NULL, &err);
- cl::Buffer R\_buf(context, CL\_MEM\_WRITE\_ONLY, sizeof(int) \* INT\_COUNT, NULL, &err);
+ cl::Buffer A_buf(context, CL_MEM_READ_ONLY, sizeof(int) \* INT_COUNT, NULL, &err);
+ cl::Buffer B_buf(context, CL_MEM_READ_ONLY, sizeof(int) \* INT_COUNT, NULL, &err);
+ cl::Buffer R_buf(context, CL_MEM_WRITE_ONLY, sizeof(int) \* INT_COUNT, NULL, &err);
 
  // Отображаем буферы на параметры функции ядра
- krnl\_vector\_add.setArg(0, A\_buf);
- krnl\_vector\_add.setArg(1, B\_buf);
- krnl\_vector\_add.setArg(2, R\_buf);
+ krnl_vector_add.setArg(0, A_buf);
+ krnl_vector_add.setArg(1, B_buf);
+ krnl_vector_add.setArg(2, R_buf);
 
  // Отображаем буферы на память устройства для организации прямого доступа к памяти
- int \*A = (int \*)q.enqueueMapBuffer(A\_buf, CL\_TRUE, CL\_MAP\_WRITE, 0, sizeof(int) \* INT\_COUNT);
- int \*B = (int \*)q.enqueueMapBuffer(B\_buf, CL\_TRUE, CL\_MAP\_WRITE, 0, sizeof(int) \* INT\_COUNT);
- int \*R = (int \*)q.enqueueMapBuffer(R\_buf, CL\_TRUE, CL\_MAP\_WRITE | CL\_MAP\_READ, 0, sizeof(int) \* INT\_COUNT);
+ int \*A = (int \*)q.enqueueMapBuffer(A_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(int) \* INT_COUNT);
+ int \*B = (int \*)q.enqueueMapBuffer(B_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(int) \* INT_COUNT);
+ int \*R = (int \*)q.enqueueMapBuffer(R_buf, CL_TRUE, CL_MAP_WRITE | CL_MAP_READ, 0, sizeof(int) \* INT_COUNT);
 
  // Готовим массивы данных для теста 
- for (int i = 0; i < INT\_COUNT; i++)
+ for (int i = 0; i < INT_COUNT; i++)
  {
- A[i] = rand() % INT\_COUNT;
- B[i] = rand() % INT\_COUNT;
+ A[i] = rand() % INT_COUNT;
+ B[i] = rand() % INT_COUNT;
  R[i] = 0;
  }
 
@@ -687,17 +687,17 @@ int main(int argc, char \*\*argv)
  // Этап 3: Запускаем задачу в ядре
  // ------------------------------------------------------------------------------------
  // Устанавливаем необходимые нам значения 
- krnl\_vector\_add.setArg(0, A\_buf);
- krnl\_vector\_add.setArg(1, B\_buf);
- krnl\_vector\_add.setArg(2, R\_buf);
- krnl\_vector\_add.setArg(3, INT\_COUNT);
+ krnl_vector_add.setArg(0, A_buf);
+ krnl_vector_add.setArg(1, B_buf);
+ krnl_vector_add.setArg(2, R_buf);
+ krnl_vector_add.setArg(3, INT_COUNT);
 
  // Копируем содержимое буферов в DDR память ускорительной карты
- q.enqueueMigrateMemObjects({A\_buf, B\_buf}, 0 /\* 0 means from host\*/);
+ q.enqueueMigrateMemObjects({A_buf, B_buf}, 0 /\* 0 means from host\*/);
  // Запускаем задачу на исполнение и ждем готовности по прерыванию
- q.enqueueTask(krnl\_vector\_add);
+ q.enqueueTask(krnl_vector_add);
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
- q.enqueueMigrateMemObjects({R\_buf}, CL\_MIGRATE\_MEM\_OBJECT\_HOST);
+ q.enqueueMigrateMemObjects({R_buf}, CL_MIGRATE_MEM_OBJECT_HOST);
 
  // По готовности устройства закрываем очередь команд
  q.finish();
@@ -706,7 +706,7 @@ int main(int argc, char \*\*argv)
  // Этап 4: Проверка результатов обработки и освобождение памяти
  // ------------------------------------------------------------------------------------
  bool match = true;
- for (int i = 0; i < INT\_COUNT; i++)
+ for (int i = 0; i < INT_COUNT; i++)
  {
  int expected = A[i] + B[i];
  if (R[i] != expected)
@@ -721,23 +721,23 @@ int main(int argc, char \*\*argv)
  delete[] fileBuf;
 
  std::cout << "TEST " << (match ? "PASSED" : "FAILED") << std::endl;
- return (match ? EXIT\_SUCCESS : EXIT\_FAILURE);
+ return (match ? EXIT_SUCCESS : EXIT_FAILURE);
 }
 
 // ------------------------------------------------------------------------------------
 // Сервисные функции
 // ------------------------------------------------------------------------------------
-std::vector<cl::Device> get\_xilinx\_devices()
+std::vector<cl::Device> get_xilinx_devices()
 {
- size\_t i;
- cl\_int err;
+ size_t i;
+ cl_int err;
  std::vector<cl::Platform> platforms;
  err = cl::Platform::get(&platforms);
  cl::Platform platform;
  for (i = 0; i < platforms.size(); i++)
  {
  platform = platforms[i];
- std::string platformName = platform.getInfo<CL\_PLATFORM\_NAME>(&err);
+ std::string platformName = platform.getInfo<CL_PLATFORM_NAME>(&err);
  if (platformName == "Xilinx")
  {
  std::cout << "INFO: Found Xilinx Platform" << std::endl;
@@ -747,30 +747,30 @@ std::vector<cl::Device> get\_xilinx\_devices()
  if (i == platforms.size())
  {
  std::cout << "ERROR: Failed to find Xilinx platform" << std::endl;
- exit(EXIT\_FAILURE);
+ exit(EXIT_FAILURE);
  }
 
  //Получаем список устройств и выбираем первый найденный
  std::vector<cl::Device> devices;
- err = platform.getDevices(CL\_DEVICE\_TYPE\_ACCELERATOR, &devices);
+ err = platform.getDevices(CL_DEVICE_TYPE_ACCELERATOR, &devices);
  return devices;
 }
 
-char \*read\_binary\_file(const std::string &xclbin\_file\_name, unsigned &nb)
+char \*read_binary_file(const std::string &xclbin_file_name, unsigned &nb)
 {
- if (access(xclbin\_file\_name.c\_str(), R\_OK) != 0)
+ if (access(xclbin_file_name.c_str(), R_OK) != 0)
     {
-        printf("ERROR: %s xclbin not available please build\\n", xclbin\_file\_name.c\_str());
-        exit(EXIT\_FAILURE);
+        printf("ERROR: %s xclbin not available please build\\n", xclbin_file_name.c_str());
+        exit(EXIT_FAILURE);
     }
  //Загружаем содержимое xclbin в буфер и терминируем его
-    std::cout << "INFO: Loading '" << xclbin\_file\_name << "'\\n";
-    std::ifstream bin\_file(xclbin\_file\_name.c\_str(), std::ifstream::binary);
-    bin\_file.seekg(0, bin\_file.end);
- nb = bin\_file.tellg();
- bin\_file.seekg(0, bin\_file.beg);
+    std::cout << "INFO: Loading '" << xclbin_file_name << "'\\n";
+    std::ifstream bin_file(xclbin_file_name.c_str(), std::ifstream::binary);
+    bin_file.seekg(0, bin_file.end);
+ nb = bin_file.tellg();
+ bin_file.seekg(0, bin_file.beg);
  char \*buf = new char[nb];
- bin\_file.read(buf, nb);
+ bin_file.read(buf, nb);
  return buf;
 }
 ```
@@ -1008,12 +1008,12 @@ void var000\_pipe\_unroll(…
  #include <random>
  #include <vector>
 
-using std::default\_random\_engine;
+using std::default_random_engine;
 using std::generate;
-using std::uniform\_int\_distribution;
+using std::uniform_int_distribution;
 using std::vector;
 
-const int DATA\_SIZE = 1 << 10;
+const int DATA_SIZE = 1 << 10;
 
 // ------------------------------------------------------------------------------------
 
@@ -1021,9 +1021,9 @@ const int DATA\_SIZE = 1 << 10;
 
 // ------------------------------------------------------------------------------------
 
- int gen\_random() {
- static default\_random\_engine e;
- static uniform\_int\_distribution<int> dist(0, 100);
+ int gen_random() {
+ static default_random_engine e;
+ static uniform_int_distribution<int> dist(0, 100);
 
  return dist(e);
 }
@@ -1034,7 +1034,7 @@ const int DATA\_SIZE = 1 << 10;
 
 // ------------------------------------------------------------------------------------
 
-void var001\_no\_pragmas(int\* c, const int\* a, const int\* b, const int len) {
+void var001_no_pragmas(int\* c, const int\* a, const int\* b, const int len) {
  int tmp = 0;
  for (int i = 0; i < len; i++) {
  tmp = tmp + a[i];
@@ -1054,72 +1054,72 @@ void var001\_no\_pragmas(int\* c, const int\* a, const int\* b, const int len) {
 
 // ------------------------------------------------------------------------------------
 
-void verify(const vector<int, aligned\_allocator<int> >& gold, const vector<int, aligned\_allocator<int> >& out) {
+void verify(const vector<int, aligned_allocator<int> >& gold, const vector<int, aligned_allocator<int> >& out) {
  if (!equal(begin(gold), end(gold), begin(out))) {
  printf("TEST FAILED\\n");
- exit(EXIT\_FAILURE);
+ exit(EXIT_FAILURE);
  }
 }
 
 int main(int argc, char\*\* argv) {
  if (argc != 2) {
  std::cout << "Usage: " << argv[0] << " <XCLBIN File>" << std::endl;
- return EXIT\_FAILURE;
+ return EXIT_FAILURE;
  }
 
  std::string binaryFile = argv[1];
 
  // Вычисление размера массива
- size\_t size\_in\_bytes = DATA\_SIZE \* sizeof(int);
- cl\_int err;
+ size_t size_in_bytes = DATA_SIZE \* sizeof(int);
+ cl_int err;
  cl::CommandQueue q;
  cl::Context context;
  cl::Program program;
 
- // Объявление и инициализация исходных массивов размерности DATA\_SIZE
- vector<int, aligned\_allocator<int> > source\_a(DATA\_SIZE);
- vector<int, aligned\_allocator<int> > source\_b(DATA\_SIZE);
- vector<int, aligned\_allocator<int> > source\_results(DATA\_SIZE);
- generate(begin(source\_a), end(source\_a), gen\_random);
- generate(begin(source\_b), end(source\_b), gen\_random);
+ // Объявление и инициализация исходных массивов размерности DATA_SIZE
+ vector<int, aligned_allocator<int> > source_a(DATA_SIZE);
+ vector<int, aligned_allocator<int> > source_b(DATA_SIZE);
+ vector<int, aligned_allocator<int> > source_results(DATA_SIZE);
+ generate(begin(source_a), end(source_a), gen_random);
+ generate(begin(source_b), end(source_b), gen_random);
 
  // Получение списка устройств и инициализация контекста
- auto devices = xcl::get\_xil\_devices();
- auto fileBuf = xcl::read\_binary\_file(binaryFile);
+ auto devices = xcl::get_xil_devices();
+ auto fileBuf = xcl::read_binary_file(binaryFile);
  cl::Program::Binaries bins{{fileBuf.data(), fileBuf.size()}};
- bool valid\_device = false;
+ bool valid_device = false;
  for (unsigned int i = 0; i < devices.size(); i++) {
  auto device = devices[i];
  // Зоздание контекста и очередей команд к устройствам (если их несколько)
- OCL\_CHECK(err, context = cl::Context(device, nullptr, nullptr, nullptr, &err));
- OCL\_CHECK(err, q = cl::CommandQueue(context, device, CL\_QUEUE\_PROFILING\_ENABLE, &err));
+ OCL_CHECK(err, context = cl::Context(device, nullptr, nullptr, nullptr, &err));
+ OCL_CHECK(err, q = cl::CommandQueue(context, device, CL_QUEUE_PROFILING_ENABLE, &err));
 
- std::cout << "Trying to program device[" << i << "]: " << device.getInfo<CL\_DEVICE\_NAME>() << std::endl;
+ std::cout << "Trying to program device[" << i << "]: " << device.getInfo<CL_DEVICE_NAME>() << std::endl;
  program = cl::Program(context, {device}, bins, nullptr, &err);
- if (err != CL\_SUCCESS) {
+ if (err != CL_SUCCESS) {
  std::cout << "Failed to program device[" << i << "] with xclbin file!\\n";
  } else {
  std::cout << "Device[" << i << "]: program successful!\\n";
- valid\_device = true;
+ valid_device = true;
  break; 
  }
  }
- if (!valid\_device) {
+ if (!valid_device) {
  std::cout << "Failed to program any device found, exit!\\n";
- exit(EXIT\_FAILURE);
+ exit(EXIT_FAILURE);
  }
 
  // Выделение памяти под буферы устрйства 
- OCL\_CHECK(err, cl::Buffer buffer\_a(context, CL\_MEM\_USE\_HOST\_PTR | CL\_MEM\_READ\_ONLY, size\_in\_bytes, source\_a.data(),
+ OCL_CHECK(err, cl::Buffer buffer_a(context, CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, size_in_bytes, source_a.data(),
  &err));
- OCL\_CHECK(err, cl::Buffer buffer\_b(context, CL\_MEM\_USE\_HOST\_PTR | CL\_MEM\_READ\_ONLY, size\_in\_bytes, source\_b.data(),
+ OCL_CHECK(err, cl::Buffer buffer_b(context, CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, size_in_bytes, source_b.data(),
  &err));
- OCL\_CHECK(err, cl::Buffer buffer\_result(context, CL\_MEM\_USE\_HOST\_PTR | CL\_MEM\_WRITE\_ONLY, size\_in\_bytes,
- source\_results.data(), &err));
+ OCL_CHECK(err, cl::Buffer buffer_result(context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, size_in_bytes,
+ source_results.data(), &err));
 
  // Вектор для проверки результатов работы ускорителя 
- vector<int, aligned\_allocator<int> > gold(DATA\_SIZE);
- var001\_no\_pragmas(gold.data(), source\_a.data(), source\_b.data(), DATA\_SIZE);
+ vector<int, aligned_allocator<int> > gold(DATA_SIZE);
+ var001_no_pragmas(gold.data(), source_a.data(), source_b.data(), DATA_SIZE);
 
  printf(
  "|-------------------------+-------------------------|\\n"
@@ -1128,40 +1128,40 @@ int main(int argc, char\*\* argv) {
 
 // ------------------------------------------------------------------------------------
 
- // Тест ускорителя без использования оптимизации (no\_pragmas)
+ // Тест ускорителя без использования оптимизации (no_pragmas)
 
 // ------------------------------------------------------------------------------------
 
- OCL\_CHECK(err, cl::Kernel kernel\_var001\_no\_pragmas(program, "var001\_no\_pragmas", &err));
+ OCL_CHECK(err, cl::Kernel kernel_var001_no_pragmas(program, "var001_no_pragmas", &err));
 
 // Устанавливаем необходимые нам значения
 
- OCL\_CHECK(err, err = kernel\_var001\_no\_pragmas.setArg(0, buffer\_result));
- OCL\_CHECK(err, err = kernel\_var001\_no\_pragmas.setArg(1, buffer\_a));
- OCL\_CHECK(err, err = kernel\_var001\_no\_pragmas.setArg(2, buffer\_b));
- OCL\_CHECK(err, err = kernel\_var001\_no\_pragmas.setArg(3, DATA\_SIZE));
+ OCL_CHECK(err, err = kernel_var001_no_pragmas.setArg(0, buffer_result));
+ OCL_CHECK(err, err = kernel_var001_no_pragmas.setArg(1, buffer_a));
+ OCL_CHECK(err, err = kernel_var001_no_pragmas.setArg(2, buffer_b));
+ OCL_CHECK(err, err = kernel_var001_no_pragmas.setArg(3, DATA_SIZE));
 
  // Копируем содержимое буферов в DDR память ускорительной карты
- OCL\_CHECK(err, err = q.enqueueMigrateMemObjects({buffer\_a, buffer\_b}, 0 /\* 0 means from host\*/));
+ OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_a, buffer_b}, 0 /\* 0 means from host\*/));
 
  cl::Event event;
- uint64\_t nstimestart, nstimeend;
+ uint64_t nstimestart, nstimeend;
  // Запускаем задачу на исполнение и ждем готовности по прерыванию
- OCL\_CHECK(err, err = q.enqueueTask(kernel\_var001\_no\_pragmas, nullptr, &event));
+ OCL_CHECK(err, err = q.enqueueTask(kernel_var001_no_pragmas, nullptr, &event));
  q.finish();
 
  //Читаем метки времени исполнения задачи
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_START, &nstimestart));
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_END, &nstimeend));
- auto no\_pragmas\_time = nstimeend - nstimestart;
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_START, &nstimestart));
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
+ auto no_pragmas_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001\_no\_pragmas", no\_pragmas\_time);
+ printf("| %-22s  | %23lu |\\n", "var001_no_pragmas", no_pragmas_time);
  printf("|-------------------------+-------------------------|\\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
- OCL\_CHECK(err, err = q.enqueueMigrateMemObjects({buffer\_result}, CL\_MIGRATE\_MEM\_OBJECT\_HOST));
+ OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
  q.finish();
- verify(gold, source\_results);
+ verify(gold, source_results);
 
 // ------------------------------------------------------------------------------------
 
@@ -1169,32 +1169,32 @@ int main(int argc, char\*\* argv) {
 
 // ------------------------------------------------------------------------------------
 
- OCL\_CHECK(err, cl::Kernel kernel\_var001\_urolled(program, "var001\_urolled", &err));
+ OCL_CHECK(err, cl::Kernel kernel_var001_urolled(program, "var001_urolled", &err));
 
 // Устанавливаем необходимые нам значения
 
- OCL\_CHECK(err, err = kernel\_var001\_urolled.setArg(0, buffer\_result));
- OCL\_CHECK(err, err = kernel\_var001\_urolled.setArg(1, buffer\_a));
- OCL\_CHECK(err, err = kernel\_var001\_urolled.setArg(2, buffer\_b));
- OCL\_CHECK(err, err = kernel\_var001\_urolled.setArg(3, DATA\_SIZE));
+ OCL_CHECK(err, err = kernel_var001_urolled.setArg(0, buffer_result));
+ OCL_CHECK(err, err = kernel_var001_urolled.setArg(1, buffer_a));
+ OCL_CHECK(err, err = kernel_var001_urolled.setArg(2, buffer_b));
+ OCL_CHECK(err, err = kernel_var001_urolled.setArg(3, DATA_SIZE));
 
  // Второй раз копировать память не требуется: DDR память используется всеми ускорителями
  // Запускаем задачу на исполнение и ждем готовности по прерыванию
- OCL\_CHECK(err, err = q.enqueueTask(kernel\_var001\_urolled, nullptr, &event));
+ OCL_CHECK(err, err = q.enqueueTask(kernel_var001_urolled, nullptr, &event));
  q.finish();
 
  //Читаем метки времени исполнения задачи
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_START, &nstimestart));
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_END, &nstimeend));
- auto unrolled\_time = nstimeend - nstimestart;
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_START, &nstimestart));
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
+ auto unrolled_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001\_urolled", unrolled\_time);
+ printf("| %-22s  | %23lu |\\n", "var001_urolled", unrolled_time);
  printf("|-------------------------+-------------------------|\\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
- OCL\_CHECK(err, err = q.enqueueMigrateMemObjects({buffer\_result}, CL\_MIGRATE\_MEM\_OBJECT\_HOST));
+ OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
  q.finish();
- verify(gold, source\_results);
+ verify(gold, source_results);
 
 // ------------------------------------------------------------------------------------
 
@@ -1202,57 +1202,57 @@ int main(int argc, char\*\* argv) {
 
 // ------------------------------------------------------------------------------------
 
- OCL\_CHECK(err, cl::Kernel kernel\_var001\_pipelined(program, "var001\_pipelined", &err));
+ OCL_CHECK(err, cl::Kernel kernel_var001_pipelined(program, "var001_pipelined", &err));
 
 // Устанавливаем необходимые нам значения
 
- OCL\_CHECK(err, err = kernel\_var001\_pipelined.setArg(0, buffer\_result));
- OCL\_CHECK(err, err = kernel\_var001\_pipelined.setArg(1, buffer\_a));
- OCL\_CHECK(err, err = kernel\_var001\_pipelined.setArg(2, buffer\_b));
- OCL\_CHECK(err, err = kernel\_var001\_pipelined.setArg(3, DATA\_SIZE));
+ OCL_CHECK(err, err = kernel_var001_pipelined.setArg(0, buffer_result));
+ OCL_CHECK(err, err = kernel_var001_pipelined.setArg(1, buffer_a));
+ OCL_CHECK(err, err = kernel_var001_pipelined.setArg(2, buffer_b));
+ OCL_CHECK(err, err = kernel_var001_pipelined.setArg(3, DATA_SIZE));
 
  // Второй раз копировать память не требуется: DDR память используется всеми ускорителями
  // Запускаем задачу на исполнение и ждем готовности по прерыванию
- OCL\_CHECK(err, err = q.enqueueTask(kernel\_var001\_pipelined, nullptr, &event));
+ OCL_CHECK(err, err = q.enqueueTask(kernel_var001_pipelined, nullptr, &event));
  q.finish();
 
  //Читаем метки времени исполнения задачи
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_START, &nstimestart));
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_END, &nstimeend));
- auto pipelined\_time = nstimeend - nstimestart;
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_START, &nstimestart));
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
+ auto pipelined_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001\_pipelined", pipelined\_time);
+ printf("| %-22s  | %23lu |\\n", "var001_pipelined", pipelined_time);
  printf("|-------------------------+-------------------------|\\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
- OCL\_CHECK(err, err = q.enqueueMigrateMemObjects({buffer\_result}, CL\_MIGRATE\_MEM\_OBJECT\_HOST));
+ OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
  q.finish();
- verify(gold, source\_results);
+ verify(gold, source_results);
 
  // -------------------------------------------------------------------------------------------------
- // Тест ускорителя с развертыванием цикла и конвейеризацией (pipe\_unroll)
+ // Тест ускорителя с развертыванием цикла и конвейеризацией (pipe_unroll)
  // -------------------------------------------------------------------------------------------------
 
- OCL\_CHECK(err, cl::Kernel kernel\_var001\_pipe\_unroll(program, "var001\_pipe\_unroll", &err));
+ OCL_CHECK(err, cl::Kernel kernel_var001_pipe_unroll(program, "var001_pipe_unroll", &err));
 
 // Устанавливаем необходимые нам значения
 
- OCL\_CHECK(err, err = kernel\_var001\_pipe\_unroll.setArg(0, buffer\_result));
- OCL\_CHECK(err, err = kernel\_var001\_pipe\_unroll.setArg(1, buffer\_a));
- OCL\_CHECK(err, err = kernel\_var001\_pipe\_unroll.setArg(2, buffer\_b));
- OCL\_CHECK(err, err = kernel\_var001\_pipe\_unroll.setArg(3, DATA\_SIZE));
+ OCL_CHECK(err, err = kernel_var001_pipe_unroll.setArg(0, buffer_result));
+ OCL_CHECK(err, err = kernel_var001_pipe_unroll.setArg(1, buffer_a));
+ OCL_CHECK(err, err = kernel_var001_pipe_unroll.setArg(2, buffer_b));
+ OCL_CHECK(err, err = kernel_var001_pipe_unroll.setArg(3, DATA_SIZE));
 
  // Второй раз копировать память не требуется: DDR память используется всеми ускорителями
  // Запускаем задачу на исполнение и ждем готовности по прерыванию
- OCL\_CHECK(err, err = q.enqueueTask(kernel\_var001\_pipe\_unroll, nullptr, &event));
+ OCL_CHECK(err, err = q.enqueueTask(kernel_var001_pipe_unroll, nullptr, &event));
  q.finish();
 
  //Читаем метки времени исполнения задачи
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_START, &nstimestart));
- OCL\_CHECK(err, err = event.getProfilingInfo<uint64\_t>(CL\_PROFILING\_COMMAND\_END, &nstimeend));
- auto pipe\_unroll\_time = nstimeend - nstimestart;
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_START, &nstimestart));
+ OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
+ auto pipe_unroll_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001\_pipe\_unroll", pipe\_unroll\_time);
+ printf("| %-22s  | %23lu |\\n", "var001_pipe_unroll", pipe_unroll_time);
  printf("|-------------------------+-------------------------|\\n");
  printf(
  "Note: Wall Clock Time is meaningful for real hardware execution "
@@ -1262,12 +1262,12 @@ int main(int argc, char\*\* argv) {
  "hardware emulation.\\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
- OCL\_CHECK(err, err = q.enqueueMigrateMemObjects({buffer\_result}, CL\_MIGRATE\_MEM\_OBJECT\_HOST));
+ OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
  q.finish();
- verify(gold, source\_results);
+ verify(gold, source_results);
 
  printf("TEST PASSED.\\n");
- return EXIT\_SUCCESS;
+ return EXIT_SUCCESS;
 }
 ```
 
