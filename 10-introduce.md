@@ -2013,7 +2013,7 @@ void var029(int* c, const int* a, const int* b, const int len) {
    }
 }
 }
-
+```
   
 
 ## Содержание отчета <a name="2_6"></a>
