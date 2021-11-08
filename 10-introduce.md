@@ -486,11 +486,11 @@ prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
 
 1.  [https://www.xilinx.com/products/design-tools/vitis/xrt.html](https://www.xilinx.com/products/design-tools/vitis/xrt.html)
     
-2.  [https://www.xilinx.com/html\_docs/xilinx2021\_1/vitis\_doc/index.html](https://www.xilinx.com/html_docs/xilinx2021_1/vitis_doc/index.html)
+2.  [https://www.xilinx.com/html_docs/xilinx2021_1/vitis_doc/index.html](https://www.xilinx.com/html_docs/xilinx2021_1/vitis_doc/index.html)
     
 3.  [http://www.asic-world.com/systemverilog/](http://www.asic-world.com/systemverilog/)
     
-4.  [https://www.xilinx.com/support/documentation/sw\_manuals/xilinx2019\_1/ug1238-sdx-rnil.pdf](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2019_1/ug1238-sdx-rnil.pdf)
+4.  [https://www.xilinx.com/support/documentation/sw_manuals/xilinx2019_1/ug1238-sdx-rnil.pdf](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2019_1/ug1238-sdx-rnil.pdf)
     
 
 # Лабраторная работа №2. Разработка ускорителей вычислений средствами САПР высокоуровневого синтеза Xilinx Vitis HLS <a name="2"></a>
@@ -2070,15 +2070,15 @@ void var029(int* c, const int* a, const int* b, const int len) {
 
 *   [https://github.com/Xilinx/Vitis-Tutorials](https://github.com/Xilinx/Vitis-Tutorials)
     
-*   [https://www.xilinx.com/html\_docs/xilinx2021\_1/vitis\_doc/index.html](https://www.xilinx.com/html_docs/xilinx2021_1/vitis_doc/index.html)
+*   [https://www.xilinx.com/html_docs/xilinx2021_1/vitis_doc/index.html](https://www.xilinx.com/html_docs/xilinx2021_1/vitis_doc/index.html)
     
-*   https://www.xilinx.com/support/documentation/sw\_manuals/xilinx2021\_1/ug1399-vitis-hls.pdf
+*   https://www.xilinx.com/support/documentation/sw_manuals/xilinx2021_1/ug1399-vitis-hls.pdf
     
-*   [https://www.xilinx.com/support/documentation/sw\_manuals/xilinx2019\_1/ug1238-sdx-rnil.pdf](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2019_1/ug1238-sdx-rnil.pdf)
+*   [https://www.xilinx.com/support/documentation/sw_manuals/xilinx2019_1/ug1238-sdx-rnil.pdf](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2019_1/ug1238-sdx-rnil.pdf)
     
-*   [https://xilinx.github.io/xup\_compute\_acceleration/Optimization\_lab.html](https://xilinx.github.io/xup_compute_acceleration/Optimization_lab.html)
+*   [https://xilinx.github.io/xup_compute_acceleration/Optimization_lab.html](https://xilinx.github.io/xup_compute_acceleration/Optimization_lab.html)
     
-*   https://www.khronos.org/registry/OpenCL/specs/opencl-cplusplus-1.2.pdf
+*   [https://www.khronos.org/registry/OpenCL/specs/opencl-cplusplus-1.2.pdf](https://www.khronos.org/registry/OpenCL/specs/opencl-cplusplus-1.2.pdf)
 
 
 
