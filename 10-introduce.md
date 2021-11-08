@@ -542,7 +542,7 @@ prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
     void sq_func(int in[128], int a, int b, int c, int out[128]) {
 
 
-![](assets/%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D1%83%D0%BC_html_783c1a61aa2f628.png)  
+<img src="assets/%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D1%83%D0%BC_html_783c1a61aa2f628.png" width="400">
 
 **Рисунок 2 — Пример оптимизации обработки потока данных в аппаратном ускорителе**
 
