@@ -381,38 +381,38 @@ prop=run.impl\_1.STEPS.ROUTE\_DESIGN.ARGS.DIRECTIVE=Explore
 
 **Таблица 1 — Индивидуальные варианты функций ускорителя**
 
-|Вариант|Функция|Регион|
-|-------|-------|------|
-|1|R[i] = A[i]/2 + 10|SLR0,DDR[0]|
-|2|R[i] = A[i]\*16 + (10<<7)|SLR1,DDR[1]|
-|3|R[i] = (A[i] -1)\*4|SLR1,DDR[2]|
-|4|R[i] = max(A[i], B[i])|SLR2,DDR[3]|
-|5|R[i] = (A[i] + 3) / 2|SLR0,DDR[0]|
-|6|R[i] = A[i] & 0xFEDCBA9876543210|SLR1,DDR[1]|
-|7|R[i] = A[i] \| ~ 0xf|SLR1,DDR[2]|
-|8|R[i] = (A[i] + 10) \| (255<<32)|SLR2,DDR[3]|
-|9|R[i] = min (A[i] - 4, 5)|SLR0,DDR[0]|
-|10|R[i] = A[i]/8 + 14|SLR1,DDR[1]|
-|11|R[i] = 25 + A[i]/2|SLR1,DDR[2]|
-|12|R[i] = (A[i] & 0xf0f0f0f0f0f0f0f0f0f0) \+ 10|SLR2,DDR[3]|
-|13|R[i] = A[i]\*8 + 10|SLR0,DDR[0]|
-|14|R[i] = A[i]/16 - 11|SLR1,DDR[1]|
-|15|R[i] = (A[i] + 128)/8|SLR1,DDR[2]|
-|16|R[i] = A[i]\*4 - 16|SLR2,DDR[3]|
-|17|R[i] = min(A[i] , 500) + 3|SLR0,DDR[0]|
-|18|R[i] = ~(A[i]+2)|SLR1,DDR[1]|
-|19|R[i] = max (A[i],3000)|SLR1,DDR[2]|
-|20|R[i] = min(A[i]-1,120)|SLR2,DDR[3]|
-|21|R[i] = ((~A[i])\*8)|SLR0,DDR[0]|
-|22|R[i] = ~A[i] + ~0xf|SLR1,DDR[1]|
-|23|R[i] = min(A[i]+3,1000)|SLR1,DDR[2]|
-|24|R[i] = (A[i] + 100) / 16|SLR2,DDR[3]|
-|25|R[i] = ~A[i] - (1024<<7)|SLR0,DDR[0]|
-|26|R[i] = min(A[i]-200,300)|SLR1,DDR[1]|
-|27|R[i] = max(A[i]\*128, 16)|SLR1,DDR[2]|
-|28|R[i] = (A[i] + 1024)\*32|SLR2,DDR[3]|
-|29|R[i] = (A[i] + 4)/1024|SLR0,DDR[0]|
-|30|R[i] = 2\*A[i] + 30|SLR1,DDR[1]|
+| Вариант | Функция                                      | Регион           |
+|---------|----------------------------------------------|------------------|
+| 1       | R[i] = A[i]/2 + 10                           | SLR0,DDR[0]      |
+| 2       | R[i] = A[i]\*16 + (10<<7)                    | SLR1,DDR[1]      |
+| 3       | R[i] = (A[i] -1)\*4                          | SLR1,DDR[2]      |
+| 4       | R[i] = max(A[i], B[i])                       | SLR2,DDR[3]      |
+| 5       | R[i] = (A[i] + 3) / 2                        | SLR0,DDR[0]      |
+| 6       | R[i] = A[i] & 0xFEDCBA9876543210             | SLR1,DDR[1]      |
+| 7       | R[i] = A[i] \| ~ 0xf                         | SLR1,DDR[2]      |
+| 8       | R[i] = (A[i] + 10) \| (255<<32)              | SLR2,DDR[3]      |
+| 9       | R[i] = min (A[i] - 4, 5)                     | SLR0,DDR[0]      |
+| 10      | R[i] = A[i]/8 + 14                           | SLR1,DDR[1]      |
+| 11      | R[i] = 25 + A[i]/2                           | SLR1,DDR[2]      |
+| 12      | R[i] = (A[i] & 0xf0f0f0f0f0f0f0f0f0f0) \+ 10 | SLR2,DDR[3]      |
+| 13      | R[i] = A[i]\*8 + 10                          | SLR0,DDR[0]      |
+| 14      | R[i] = A[i]/16 - 11                          | SLR1,DDR[1]      |
+| 15      | R[i] = (A[i] + 128)/8                        | SLR1,DDR[2]      |
+| 16      | R[i] = A[i]\*4 - 16                          | SLR2,DDR[3]      |
+| 17      | R[i] = min(A[i] , 500) + 3                   | SLR0,DDR[0]      |
+| 18      | R[i] = ~(A[i]+2)                             | SLR1,DDR[1]      |
+| 19      | R[i] = max (A[i],3000)                       | SLR1,DDR[2]      |
+| 20      | R[i] = min(A[i]-1,120)                       | SLR2,DDR[3]      |
+| 21      | R[i] = ((~A[i])\*8)                          | SLR0,DDR[0]      |
+| 22      | R[i] = ~A[i] + ~0xf                          | SLR1,DDR[1]      |
+| 23      | R[i] = min(A[i]+3,1000)                      | SLR1,DDR[2]      |
+| 24      | R[i] = (A[i] + 100) / 16                     | SLR2,DDR[3]      |
+| 25      | R[i] = ~A[i] - (1024<<7)                     | SLR0,DDR[0]      |
+| 26      | R[i] = min(A[i]-200,300)                     | SLR1,DDR[1]      |
+| 27      | R[i] = max(A[i]\*128, 16)                    | SLR1,DDR[2]      |
+| 28      | R[i] = (A[i] + 1024)\*32                     | SLR2,DDR[3]      |
+| 29      | R[i] = (A[i] + 4)/1024                       | SLR0,DDR[0]      |
+| 30      | R[i] = 2\*A[i] + 30                          | SLR1,DDR[1]      |
 
 
 
