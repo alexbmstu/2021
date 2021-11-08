@@ -1414,914 +1414,582 @@ int main(int argc, char\*\* argv) {
 
   
 
-**Таблица 1 — Индивидуальные варианты кода ядра ускорителя**
-  
+**Вариант 1**
 
-Вариант
-
-Код ядра
-
+```
 extern "C" {
-
-void var001(int\* c, const int\* a, const int\* b, const int len) {
-
-int tmp = 0;
-
-for (int i = 0; i < len; i++) {
-
-tmp = tmp + a[i];
-
+void var001(int* c, const int* a, const int* b, const int len) {
+    int tmp = 0;
+    for (int i = 0; i < len; i++) {
+          tmp = tmp + a[i];
+    }
+    for (int i = 0; i < len; i++) {
+          if (b[i] > tmp/len) {
+               c[i] = b[i];
+          } else {
+               c[i] = a[i];
+          }
+    }
 }
-
-for (int i = 0; i < len; i++) {
-
-if (b[i] > tmp/len) {
-
-c[i] = b[i];
-
-} else {
-
-c[i] = a[i];
-
 }
+```
 
-}
+**Вариант 2**
 
-}
-
-}
-
+```
 extern "C" {
-
-void var002(int\* c, const int\* a, const int\* b, const int len) {
-
-for (int i = 0; i < len; i+=2) {
-
-if (b[i] > a[i]) {
-
-c[i] = b[i];
-
-} else {
-
-c[i]= a[i];
-
+void var002(int* c, const int* a, const int* b, const int len) {
+    for (int i = 0; i < len; i+=2) {
+          if (b[i] > a[i]) {
+               c[i] = b[i];
+          } else {
+               c[i]= a[i];
+          }
+    }
+    for (int i = 1; i < len; i+=2) {
+          if (b[i] < a[i]) {
+               c[i] = b[i];
+          } else {
+               c[i]= a[i];
+          }
+    }
 }
-
 }
+```
 
-for (int i = 1; i < len; i+=2) {
+**Вариант 3**
 
-if (b[i] < a[i]) {
-
-c[i] = b[i];
-
-} else {
-
-c[i]= a[i];
-
-}
-
-}
-
-}
-
-}
-
+```
 extern "C" {
-
-void var003(int\* c, const int\* a, const int\* b, const int len) {
-
-int minA = a[0];
-
-int minB = b[0];
-
-for (int i = 1; i < len; i++) {
-
-if (minA > a[i]) {
-
-minA = a[i];
-
-c[i] = minA;
-
-} else {
-
-c[i] = 0;
-
+void var003(int* c, const int* a, const int* b, const int len) {
+    int minA = a[0];
+    int minB = b[0];
+    for (int i = 1; i < len; i++) {
+          if (minA > a[i]) {
+               minA = a[i];
+               c[i] = minA;
+          } else {
+               c[i] = 0;
+          }    
+    }
+    for (int i = 1; i < len; i++) {
+          if (minB > b[i]) {
+               minB = b[i];
+               c[i] = minB;
+          }    
+    }
 }
-
 }
+```
 
-for (int i = 1; i < len; i++) {
-
-if (minB > b[i]) {
-
-minB = b[i];
-
-c[i] = minB;
-
-}
-
-}
-
-}
-
-}
-
+**Вариант 4**
+```
 extern "C" {
+void var004(int* c, const int* a, const int* b, const int len) {
+    for (int x = 0; x < len; ++x) {
+    	int sumA = 0;
+    	int sumB = 0;
+    	int volA = a[x];
+    	int volB = b[x];
+    	for (int i = 0; i < 32; i++) {
+    		sumA += (volA) & 1;
+    		volA = volA/2;
+    		sumB += (volB) & 1;
+    		volB = volB/2;
+    	}
+    	if (sumA > sumB)
+    		c[x] = sumA;
+    	else
+    		c[x] = sumB;
 
-void var004(int\* c, const int\* a, const int\* b, const int len) {
-
-for (int x = 0; x < len; ++x) {
-
-int sumA = 0;
-
-int sumB = 0;
-
-int volA = a[x];
-
-int volB = b[x];
-
-for (int i = 0; i < 32; i++) {
-
-sumA += (volA) & 1;
-
-volA = volA/2;
-
-sumB += (volB) & 1;
-
-volB = volB/2;
-
+    }
 }
-
-if (sumA > sumB)
-
-c[x] = sumA;
-
-else
-
-c[x] = sumB;
-
-  
-
 }
+```
 
-}
-
-}
-
+**Вариант 5**
+```
 extern "C" {
-
-void var005(int\* c, const int\* a, const int\* b, const int len) {
-
-for (int i = 0; i < len; i+=2) {
-
-c[i] = a[i] + i;
-
+void var005(int* c, const int* a, const int* b, const int len) {
+    for (int i = 0; i < len; i+=2) {
+          c[i] = a[i] + i;
+    }
+    for (int i = 1; i < len; i+=2) {
+          c[i] = b[i] - i;
+    }
 }
-
-for (int i = 1; i < len; i+=2) {
-
-c[i] = b[i] - i;
-
 }
+```
 
-}
-
-}
-
+**Вариант 6**
+```
 extern "C" {
-
-void var006(int\* c, const int\* a, const int\* b, const int len) {
-
-int minB = b[0];
-
-for (int i = 1; i < len; i++) {
-
-if (minB > b[i]) {
-
-minB = b[i];
-
+void var006(int* c, const int* a, const int* b, const int len) {
+    int minB = b[0];
+    for (int i = 1; i < len; i++) {
+          if (minB > b[i]) {
+               minB = b[i];
+          }    
+    }
+    int acc = 0;
+    for(int i=0; i < len; i++){
+       acc += a[i] * minB;
+       c[i] = acc;
+    }
 }
-
 }
+```
 
-int acc = 0;
-
-for(int i=0; i < len; i++){
-
-acc += a[i] \* minB;
-
-c[i] = acc;
-
-}
-
-}
-
-}
-
+**Вариант 7**
+```
 extern "C" {
-
-void var007(int\* c, const int\* a, const int\* b, const int len) {
-
-int maxA = a[0];
-
-int minB = b[0];
-
-for (int i = 1; i < len; i++) {
-
-if (maxA <= a[i]) maxA = a[i];
-
+void var007(int* c, const int* a, const int* b, const int len) {
+    int maxA = a[0];
+    int minB = b[0];
+    for (int i = 1; i < len; i++) {
+          if (maxA <= a[i])  maxA = a[i];
+    }
+    for (int i = 1; i < len; i++) {
+          if (minB > b[i]) {
+               minB = b[i];
+               c[i] = minB + maxA;
+          }    
+    }
 }
-
-for (int i = 1; i < len; i++) {
-
-if (minB > b[i]) {
-
-minB = b[i];
-
-c[i] = minB + maxA;
-
 }
+```
 
-}
-
-}
-
-}
-
+**Вариант 8**
+```
 extern "C" {
-
-void var008(int\* c, const int\* a, const int\* b, const int len) {
-
-int min;
-
-for (int i = 0; i < len; i++) {
-
-if (min > a[i]) min = a[i];
-
-if (min > b[i]) min = b[i];
-
+void var008(int* c, const int* a, const int* b, const int len) {
+    int min;
+    for (int i = 0; i < len; i++) {
+          if (min > a[i]) min = a[i];
+          if (min > b[i]) min = b[i];
+    }
+    for (int i = 0; i < len; i++) {
+          c[i] = min + i;
+    }
 }
-
-for (int i = 0; i < len; i++) {
-
-c[i] \= min \+ i;
-
 }
+```
 
-}
-
-}
-
+**Вариант 9**
+```
 extern "C" {
-
-void var009(int\* c, const int\* a, const int\* b, const int len) {
-
-int meanA = 0;
-
-int meanB = 0;
-
-for (int i = 0; i < len; i++) {
-
-meanA += a[i];
-
-meanB += b[i];
-
+void var009(int* c, const int* a, const int* b, const int len) {
+    int meanA = 0;
+    int meanB = 0;
+    for (int i = 0; i < len; i++) {
+          meanA += a[i];
+          meanB += b[i];
+    }
+    for (int i = 0; i < len; i+=2) {
+          c[i] = meanA;
+          c[i+1] = meanB;
+    }
 }
-
-for (int i = 0; i < len; i+=2) {
-
-c[i] \= meanA;
-
-c[i+1] \= meanB;
-
 }
+```
 
-}
-
-}
-
+**Вариант 10**
+```
 extern "C" {
-
-void var010(int\* c, const int\* a, const int\* b, const int len) {
-
-int maxA = a[len-1];
-
-for (int i = len-1; i >=0 ; i--) {
-
-if (maxA < a[i]) {
-
-maxA = a[i];
-
-c[i] = maxA;
-
-} else {
-
-c[i] = b[i];
-
+void var010(int* c, const int* a, const int* b, const int len) {
+    int maxA = a[len-1];
+    for (int i = len-1; i >=0 ; i--) {
+          if (maxA < a[i]) {
+               maxA = a[i];
+               c[i] = maxA;
+          } else {
+               c[i] = b[i];
+          }    
+    }
 }
-
 }
+```
 
-}
-
-}
-
+**Вариант 11**
+```
 extern "C" {
+void var011(int* c, const int* a, const int* b, const int len) {
+    for (int x = 0; x < len; ++x) {
+    	int subA = 32;
+    	int subB = 32;
+    	int volA = a[x];
+    	int volB = b[x];
+    	for (int i = 0; i < 32; i++) {
+    		subA -= (volA) & 1;
+    		volA = volA/2;
+    		subB -= (volB) & 1;
+    		volB = volB/2;
+    	}
+    	if (subA > subB)
+    		c[x] = subA;
+    	else
+    		c[x] = subB;
 
-void var011(int\* c, const int\* a, const int\* b, const int len) {
-
-for (int x = 0; x < len; ++x) {
-
-int subA = 32;
-
-int subB = 32;
-
-int volA = a[x];
-
-int volB = b[x];
-
-for (int i = 0; i < 32; i++) {
-
-subA -= (volA) & 1;
-
-volA = volA/2;
-
-subB -= (volB) & 1;
-
-volB = volB/2;
-
+    }
 }
-
-if (subA > subB)
-
-c[x] = subA;
-
-else
-
-c[x] = subB;
-
-  
-
 }
+```
 
-}
-
-}
-
+**Вариант 12**
+```
 extern "C" {
-
-void var012(int\* c, const int\* a, const int\* b, const int len) {
-
-int ptr = 0;
-
-for (int i = 0; i < len; i++) {
-
-ptr = b[i] % len;
-
-c = a[ptr] + i;
-
+void var012(int* c, const int* a, const int* b, const int len) {
+    int ptr = 0;
+    for (int i = 0; i < len; i++) {
+        ptr = b[i] % len;
+        c = a[ptr] + i;
+     }
 }
-
 }
+```
 
-}
-
+**Вариант 13**
+```
 extern "C" {
-
-void var013(int\* c, const int\* a, const int\* b, const int len) {
-
-int tmp = 0;
-
-for (int i = 0; i < len; i++) {
-
-tmp = tmp + b[i]/2;
-
+void var013(int* c, const int* a, const int* b, const int len) {
+    int tmp = 0;
+    for (int i = 0; i < len; i++) {
+          tmp = tmp + b[i]/2;
+    }
+    for (int i = 0; i < len; i++) {
+          if (a[i] < tmp) {
+               c[i] = b[i];
+          } else {
+               c[i] = a[i];
+          }
+    }
 }
-
-for (int i = 0; i < len; i++) {
-
-if (a[i] < tmp) {
-
-c[i] = b[i];
-
-} else {
-
-c[i] = a[i];
-
 }
+```
 
-}
-
-}
-
-}
-
+**Вариант 14**
+```
 extern "C" {
-
-void var014(int\* c, const int\* a, const int\* b, const int len) {
-
-int tmpA = 0;
-
-int tmpB = 0;
-
-for (int i = 0; i < len; i++) {
-
-tmpA += a[i] \* i;
-
-tmpB += b[i] \* i;
-
+void var014(int* c, const int* a, const int* b, const int len) {
+    int tmpA = 0;
+    int tmpB = 0;
+    for (int i = 0; i < len; i++) {
+          tmpA += a[i] * i;
+          tmpB += b[i] * i;
+    }
+    for (int i = 0; i < len; i+=2) {
+          c[i] = tmpA;
+          c[i+1] = tmpB;
+    }
 }
-
-for (int i = 0; i < len; i+=2) {
-
-c[i] \= tmpA;
-
-c[i+1] \= tmpB;
-
 }
+```
 
-}
-
-}
-
+**Вариант 15**
+```
 extern "C" {
+void var015(int* c, const int* a, const int* b, const int len) {
+   int X_accum=0;
+   int Y_accum=0;
+   int i,j;
+   for (i=0;i<len; i++) {
+     X_accum += a[i];
+     Y_accum += b[i];
+     c[i] = X_accum + Y_accum;
+   } 
+}
+}
+```
 
-void var015(int\* c, const int\* a, const int\* b, const int len) {
-
-       
-
+**Вариант 16**
+```
 extern "C" {
-
-void var016(int\* c, const int\* a, const int\* b, const int len) {
-
-int minB = a[len-1];
-
-for (int i = len-1; i >=0 ; i--) {
-
-if (minB > b[i]) minB = b[i];
-
+void var016(int* c, const int* a, const int* b, const int len) {
+    int minB = a[len-1];
+    for (int i = len-1; i >=0 ; i--) {
+          if (minB > b[i]) minB = b[i];
+    }
+    for (int i = 0; i < len; i++) {
+          if (a[i] < minB) {
+               c[i] = minB;
+          } else {
+               c[i] = a[i];
+          }
+    }
 }
-
-for (int i = 0; i < len; i++) {
-
-if (a[i] < minB) {
-
-c[i] = minB;
-
-} else {
-
-c[i] = a[i];
-
 }
+```
 
-}
-
-}
-
-}
-
+**Вариант 17**
+```
 extern "C" {
-
-void var017(int\* c, const int\* a, const int\* b, const int len) {
-
-int max;
-
-for (int i = 0; i < len; i++) {
-
-if (max < a[i]) max = a[i];
-
-if (max < b[i]) max = b[i];
-
+void var017(int* c, const int* a, const int* b, const int len) {
+    int max;
+    for (int i = 0; i < len; i++) {
+          if (max < a[i]) max = a[i];
+          if (max < b[i]) max = b[i];
+    }
+    for (int i = 0; i < len; i++) {
+          c[i] = max * i;
+    }
 }
-
-for (int i = 0; i < len; i++) {
-
-c[i] \= max \* i;
-
 }
+```
 
-}
-
-}
-
+**Вариант 18**
+```
 extern "C" {
-
-void var018(int\* c, const int\* a, const int\* b, const int len) {
-
-int acc = 0;
-
-for(int i=0; i < len; i++){
-
-acc += a[i] \* b[i];
-
-c[i] = acc;
-
+void var018(int* c, const int* a, const int* b, const int len) {
+    int acc = 0;
+    for(int i=0; i < len; i++){
+       acc += a[i] * b[i];
+       c[i] = acc;
+    }
+    int minB = b[0];
+    for (int i = 1; i < len; i++) {
+          if (minB > b[i]) {
+               minB = b[i];
+          }    
+    }
 }
-
-int minB = b[0];
-
-for (int i = 1; i < len; i++) {
-
-if (minB > b[i]) {
-
-minB = b[i];
-
 }
+```
 
-}
-
-}
-
-}
-
+**Вариант 19**
+```
 extern "C" {
-
-void var019(int\* c, const int\* a, const int\* b, const int len) {
-
-int tmpA;
-
-int tmpB;
-
-int tmpC;
-
-for(int i=0; i < len; i++){
-
-tmpA = a[i];
-
-tmpB = b[i];
-
-for (int j=0; j<8; j++)
-
-tmpA = a[i] & 0x7;
-
-tmpB = b[i] & 0x7;
-
-tmpC = (tmpA + tmpB) & 0x7;
-
-tmpA = tmpA>>4;
-
-tmpB = tmpB>>4;
-
-tmpC = tmpA<<4;
-
+void var019(int* c, const int* a, const int* b, const int len) {
+    int tmpA;
+    int tmpB;
+    int tmpC;
+    for(int i=0; i < len; i++){
+         tmpA = a[i];
+         tmpB = b[i];
+         for (int j=0; j<8; j++)
+             tmpA = a[i] & 0x7;
+             tmpB = b[i] & 0x7;
+             tmpC = (tmpA + tmpB) & 0x7;
+             tmpA = tmpA>>4;
+             tmpB = tmpB>>4;
+             tmpC = tmpA<<4;
+        }
+        c[i] = tmpC;
+   }
 }
-
-c[i] = tmpC;
-
 }
+```
 
-}
-
-}
-
+**Вариант 20**
+```
 extern "C" {
-
- #define N 64
-
-void var020(int\* c, const int\* a, const int\* b, const int len) {
-
-int iterations = len / N;
-
-int tmp\_add[N];
-
-int tmp\_mul[N];
-
-for (int i = 0; i < iterations; i++) {
-
-for (int j = 0; j < N; j++) {
-
-tmpA[j] = a[i\*N+j] + b[i\*N+j];
-
-tmpB[j] = a[i\*N+j] \* b[i\*N+j];
-
+\#define N 64
+void var020(int* c, const int* a, const int* b, const int len) {
+    int iterations = len / N;
+    int tmp_add[N];
+    int tmp_mul[N];
+    for (int i = 0; i < iterations; i++) {
+        for (int j = 0; j < N; j++) {
+           tmpA[j] = a[i*N+j] + b[i*N+j];
+           tmpB[j] = a[i*N+j] * b[i*N+j];
+        }
+        for (int j = 0; j < N; j++) {
+           if (tmpA>tmpB) {
+              c[i*N+j] = tmpA;
+           } else {
+              c[i*N+j] = tmpB;
+           }
+        }
 }
-
-for (int j = 0; j < N; j++) {
-
-if (tmpA>tmpB) {
-
-c[i\*N+j] = tmpA;
-
-} else {
-
-c[i\*N+j] = tmpB;
-
 }
+```
 
-}
-
-}
-
-}
-
+**Вариант 21**
+```
 extern "C" {
-
- #define MIN 10
-
- #define MAX 10000
-
-void var021(int\* c, const int\* a, const int\* b, const int len) {
-
-int ptr = 0;
-
-for (int i = 0; i < len; i++) {
-
-if (a[i]>=MIN && a[i]<=MAX && b[i]>=MIN && b[i]<=MAX) {
-
-c[ptr++] = tmpA + tmpB;
-
+\#define MIN 10
+\#define MAX 10000
+void var021(int* c, const int* a, const int* b, const int len) {
+    int ptr = 0;
+    for (int i = 0; i < len; i++) {
+        if (a[i]>=MIN && a[i]<=MAX && b[i]>=MIN && b[i]<=MAX) {
+            c[ptr++] = tmpA + tmpB;
+        }
+     }
 }
-
 }
+```
 
-}
-
-}
-
+**Вариант 22**
+```
 extern "C" {
-
- #define MIN 10
-
- #define MAX 100
-
-void var022(int\* c, const int\* a, const int\* b, const int len) {
-
-int mask;
-
-int high\_bit;
-
-for (int i = 0; i < len; i++) {
-
-mask = a[i] & b[i];
-
-high\_bit = 0;
-
-for (int j = 0; i < 32; i++) {
-
-if (mask & 0x1) {
-
-high\_bit = j;
-
+\#define MIN 10
+\#define MAX 100
+void var022(int* c, const int* a, const int* b, const int len) {
+    int mask;
+    int high_bit;
+    for (int i = 0; i < len; i++) {
+        mask = a[i] & b[i];
+        high_bit = 0;
+        for (int j = 0; i < 32; i++) {
+            if (mask & 0x1) {
+               high_bit = j;
+            } 
+            mask = mask/2;
+        }
+        c[i] = high_bit;
+     }
 }
-
-mask = mask/2;
-
 }
+```
 
-c[i] = high\_bit;
-
-}
-
-}
-
-}
-
+**Вариант 23**
+```
 extern "C" {
-
-void var023(int\* c, const int\* a, const int\* b, const int len) {
-
-int tmpA;
-
-int tmpB;
-
-int tmpC;
-
-for(int i=0; i < len; i++){
-
-tmpA = a[i];
-
-tmpB = b[i];
-
-for (int j=0; j<4; j++)
-
-tmpA = a[i] & 0x255;
-
-tmpB = b[i] & 0x255;
-
-tmpC = (tmpA + tmpB) & 0x255;
-
-tmpA = tmpA>>8;
-
-tmpB = tmpB>>8;
-
-tmpC = tmpA<<8;
-
+void var023(int* c, const int* a, const int* b, const int len) {
+    int tmpA;
+    int tmpB;
+    int tmpC;
+    for(int i=0; i < len; i++){
+         tmpA = a[i];
+         tmpB = b[i];
+         for (int j=0; j<4; j++)
+             tmpA = a[i] & 0x255;
+             tmpB = b[i] & 0x255;
+             tmpC = (tmpA + tmpB) & 0x255;
+             tmpA = tmpA>>8;
+             tmpB = tmpB>>8;
+             tmpC = tmpA<<8;
+        }
+        c[i] = tmpC;
+   }
 }
-
-c[i] = tmpC;
-
 }
+```
 
-}
-
-}
-
+**Вариант 24**
+```
 extern "C" {
-
- #define MIN 10
-
- #define MAX 100
-
-void var024(int\* c, const int\* a, const int\* b, const int len) {
-
-int mask;
-
-int low\_bit;
-
-for (int i = 0; i < len; i++) {
-
-mask = a[i] & b[i];
-
-low\_bit = 0;
- 
-for (int j = 0; i < 32; i++) {
-
-if (mask & 0x1) {
-
-low\_bit = j;
-
-break;
-
-} else {
-
-mask = mask>>1;
-
+\#define MIN 10
+\#define MAX 100
+void var024(int* c, const int* a, const int* b, const int len) {
+    int mask;
+    int low_bit;
+    for (int i = 0; i < len; i++) {
+        mask = a[i] & b[i];
+        low_bit = 0;
+        for (int j = 0; i < 32; i++) {
+            if (mask & 0x1) {
+               low_bit = j;
+               break;
+            } else {
+               mask = mask>>1;
+            }
+        }
+        c[i] = low_bit;
+     }
 }
-
 }
+```
 
-c[i] = low\_bit;
-
-}
-
-}
-
-}
-
+**Вариант 25**
+```
 extern "C" {
-
- #define MIN 10
-
- #define MAX 100
-
-void var025(int\* c, const int\* a, const int\* b, const int len) {
-
-for (int i = 0; i < len; i++) {
-
-if (a[i]>=MIN && a[i]<=MAX) {
-
-tmpA = a[i];
-
-} else {
-
-tmpA = 0;
-
+\#define MIN 10
+\#define MAX 100
+void var025(int* c, const int* a, const int* b, const int len) {
+    for (int i = 0; i < len; i++) {
+        if (a[i]>=MIN && a[i]<=MAX) {
+            tmpA = a[i];
+        } else {
+            tmpA = 0;
+        }
+        if (b[i]>=MIN && b[i]<=MAX) {
+            tmpB = b[i];
+        } else {
+            tmpB = 0;
+        }
+        c[i] = tmpA*tmpB;
+     }
 }
-
-if (b[i]>=MIN && b[i]<=MAX) {
-
-tmpB = b[i];
-
-} else {
-
-tmpB = 0;
-
 }
+```
 
-c[i] = tmpA\*tmpB;
-
-}
-
-}
-
-}
-
+**Вариант 26**
+```
 extern "C" {
-
-void var026(int\* c, const int\* a, const int\* b, const int len) {
-
-int max;
-
-int min;
-
-for (int i = 0; i < len; i++) {
-
-if (max < a[i]) max = a[i];
-
-if (min > b[i]) min = b[i];
-
+void var026(int* c, const int* a, const int* b, const int len) {
+    int max;
+    int min;
+    for (int i = 0; i < len; i++) {
+          if (max < a[i]) max = a[i];
+          if (min > b[i]) min = b[i];
+    }
+    for (int i = 0; i < len; i++) {
+          c[i] = (min + max) * i;
+    }
 }
-
-for (int i = 0; i < len; i++) {
-
-c[i] \= (min + max) \* i;
-
 }
+```
 
-}
-
-}
-
+**Вариант 27**
+```
 extern "C" {
-
-void var027(int\* c, const int\* a, const int\* b, const int len) {
-
-int ptr = 0;
-
-for (int i = 0; i < len; i++) {
-
-ptr = a[i] % len;
-
-c = b[ptr];
-
+void var027(int* c, const int* a, const int* b, const int len) {
+    int ptr = 0;
+    for (int i = 0; i < len; i++) {
+        ptr = a[i] % len;
+        c = b[ptr];
+     }
 }
-
 }
+```
 
-}
-
+**Вариант 28**
+```
 extern "C" {
-
- #define N 64
-
-void var028(int\* c, const int\* a, const int\* b, const int len) {
-
-int iterations = len / N;
-
-int tmp\_add[N];
-
-int tmp\_mul[N];
-
-for (int i = 0; i < iterations; i++) {
-
-for (int j = 0; j < N; j++) {
-
-tmpA[j] = a[i\*N+j] + b[i\*N+j];
-
-tmpB[j] = a[i\*N+j] \* b[i\*N+j];
-
+\#define N 64
+void var028(int* c, const int* a, const int* b, const int len) {
+    int iterations = len / N;
+    int tmp_add[N];
+    int tmp_mul[N];
+    for (int i = 0; i < iterations; i++) {
+        for (int j = 0; j < N; j++) {
+           tmpA[j] = a[i*N+j] + b[i*N+j];
+           tmpB[j] = a[i*N+j] * b[i*N+j];
+        }
+        for (int j = 0; j < N; j++) {
+           if (tmpA>tmpB) {
+              c[i*N+j] = tmpA;
+           } else {
+              c[i*N+j] = tmpB;
+           }
+        }
 }
-
-for (int j = 0; j < N; j++) {
-
-if (tmpA>tmpB) {
-
-c[i\*N+j] = tmpA;
-
-} else {
-
-c[i\*N+j] = tmpB;
-
 }
+```
 
-}
-
-}
-
-}
-
+**Вариант 29**
+```
 extern "C" {
-
-void var029(int\* c, const int\* a, const int\* b, const int len) {
-
-int tmpA;
-
-int tmpB;
-
-int tmpC;
-
-for(int i=0; i < len; i++){
-
-tmpA = a[i];
-
-tmpB = b[i];
-
-for (int j=0; j<2; j++)
-
-tmpA = a[i] & 0x65535;
-
-tmpB = b[i] & 0x65535;
-
-tmpC = (tmpA + tmpB) & 0x65535;
-
-tmpA = tmpA>>16;
-
-tmpB = tmpB>>16;
-
-tmpC = tmpA<<16;
-
+void var029(int* c, const int* a, const int* b, const int len) {
+    int tmpA;
+    int tmpB;
+    int tmpC;
+    for(int i=0; i < len; i++){
+         tmpA = a[i];
+         tmpB = b[i];
+         for (int j=0; j<2; j++)
+             tmpA = a[i] & 0x65535;
+             tmpB = b[i] & 0x65535;
+             tmpC = (tmpA + tmpB) & 0x65535;
+             tmpA = tmpA>>16;
+             tmpB = tmpB>>16;
+             tmpC = tmpA<<16;
+        }
+        c[i] = tmpC;
+   }
 }
-
-c[i] = tmpC;
-
 }
-
-}
-
-}
-
-  
 
   
 
