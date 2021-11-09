@@ -2,11 +2,11 @@
 
 ---
 
-# Менторы хакатона
+# Руководители практикума
 
 
-|   <img src="assets/aleksei_popov.png" width="150"> |  <img src="assets/stanislav_ibragimov.png" width="150">  |  <img src="assets/egor_dubrovin.png" width="150">  |
-|: --------------------------------------- :|: --------------------------------------- :|
+|   <img src="assets/aleksei_popov.png" width="200"> |  <img src="assets/stanislav_ibragimov.png" width="200">  |  <img src="assets/egor_dubrovin.png" width="200">  |
+|: --------------------------------------- :|: --------------------------------------- :|: --------------------------------------- :|
 |   [Алексей Попов](mailto:alexpopov@bmstu.ru), <br> *МГТУ им. Н.Э.Баумана*   |   [Станислав  Ибрагимов](mailto:ibragimov@bmstu.ru)  <br>  *МГТУ им. Н.Э.Баумана*    |   [Егор Дубровин](mailto:dubrovin.en@ya.ru)  <br>  *МГТУ им. Н.Э.Баумана*    |
  
 
