@@ -1,8 +1,8 @@
-# Cтуденческий конкурс (хакатон) МГТУ им. Н.Э.Баумана по разработке ускорителей вычислений на платформе Xilinx Alveo 
+# Cтуденческий практикум МГТУ им. Н.Э.Баумана по разработке ускорителей вычислений на платформе Xilinx Alveo 
 
 ---
 
-# Организаторы хакатона
+# Менторы хакатона
 
 
 |   <img src="assets/aleksei_popov.png" width="150"> |  <img src="assets/stanislav_ibragimov.png" width="150">  |  <img src="assets/egor_dubrovin.png" width="150">  |
