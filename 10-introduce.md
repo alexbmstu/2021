@@ -309,20 +309,34 @@
 
 ```
 [connectivity]
-nk=rtl_kernel_vinc:2:vinc0.vinc1
-slr=vinc0:SLR0
-sp=vinc0.axi4_0:DDR[0]
-sp=vinc0.axi4_1:PLRAM[0]
-slr=vinc1:SLR1
-sp=vinc1.axi4_0:DDR[2]
-sp=vinc1.axi4_1:PLRAM[1]
+ # Объявление ядра и экземпляров ядра (nk)
+ # rtl_kernel_vinc 	- Имя модуля верхнего уровня Vivado (см. RTL проект)
+ # 2			- Количество экземпляров ядра
+ # vinc2,vinc1		- Условные имена экземпляров ядра (определяются разработчиком)
+ # Доступ из ПО хоста выполняется по имени <Имя ядра>:{<Имя экземпляра>}. Например: rtl_kernel_vinc:{vinc0}
+ nk=rtl_kernel_vinc:2:vinc0.vinc1
+ # Связывание с регионом (slr)
+ # vinc0		- Имя экземпляра ядра
+ # SLR0			- Имя региона. Допустимые имена регионов: SLR0,SLR1,SLR2 
+ slr=vinc0:SLR0
+ # Связывание с интерфейсом памяти (sp)
+ # vinc0		- Имя экземпляра ядра
+ # axi4_0		- Имя интерфейса ядра в проекте Vivado (см. RTL проект). 
+ # SLR0			- Имя интерфейса памяти. Допустимые имена интерфейса: PLRAM[0],PLRAM[1],PLRAM[2],DDR[0],DDR[1],DDR[2],DDR[3] 
+ sp=vinc0.axi4_0:DDR[0]
+ sp=vinc0.axi4_1:PLRAM[0]
+ # Аналогичные директивы для каждого экземпляра ядра
+ slr=vinc1:SLR1
+ sp=vinc1.axi4_0:DDR[2]
+ sp=vinc1.axi4_1:PLRAM[1]
 
 [vivado]
-prop=run.impl_1.STEPS.OPT_DESIGN.ARGS.DIRECTIVE=Explore
-prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=Explore
-prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.IS_ENABLED=true
-prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE=AggressiveExplore
-prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
+ # Настройки параметров фазы имплементации
+ prop=run.impl_1.STEPS.OPT_DESIGN.ARGS.DIRECTIVE=Explore
+ prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=Explore
+ prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.IS_ENABLED=true
+ prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE=AggressiveExplore
+ prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore
 ```  
 
 Конфигурационный файл занесите в отчет.
