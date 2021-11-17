@@ -364,7 +364,7 @@
 
 Запустите линковку проекта в сессии screen:
 
-    v++ -l -t hw -o <Путь к файлу vinc.xclbin> -f xilinx_u200_xdma_201830_2 <Путь к *.xo> --config <Путь к конфигурационному файлу.cfg>
+    v++ -l -t hw -o <Путь к файлу vinc.xclbin>/vinc.xclbin -f xilinx_u200_xdma_201830_2 <Путь к *.xo> --config <Путь к конфигурационному файлу.cfg>
 
   
 
