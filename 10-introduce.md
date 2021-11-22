@@ -401,7 +401,7 @@
 
 В меню Xilinx войдите в пункт Debug Configuration.
 
-Создайте новую Debug сессию типа TCF Local System debug.
+Создайте новую Debug сессию типа System Project Debug.
 
 Нажмите кнопку Debug. После этого запустится сессия отладки, которая остановится в начале функции main().
 
