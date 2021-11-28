@@ -2020,7 +2020,7 @@ void var027(int* c, const int* a, const int* b, const int len) {
     int ptr = 0;
     for (int i = 0; i < len; i++) {
         ptr = a[i] % len;
-        c = b[ptr];
+        c[i] = b[ptr];
      }
 }
 }
