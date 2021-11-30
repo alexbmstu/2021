@@ -1057,7 +1057,7 @@ void var000_pipe_unroll(…
 ![](assets/%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D1%83%D0%BC_html_a61e033e729071da.png)  
   
 
-Для файла host.cpp можно использовать следующий шаблон ([https://bmstu.codes/alexbmstu/acceleration\_labs\_2021/-/raw/master/sources/host.cpp](https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/host.cpp)):
+Для файла host.cpp можно использовать следующий шаблон ([https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/host.cpp](https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/host.cpp)):
 
   
 ```cpp
@@ -1228,18 +1228,18 @@ int main(int argc, char** argv) {
 
 // ------------------------------------------------------------------------------------
 
- OCL_CHECK(err, cl::Kernel kernel_var001_urolled(program, "var001_urolled", &err));
+ OCL_CHECK(err, cl::Kernel kernel_var001_unrolled(program, "var001_unrolled", &err));
 
 // Устанавливаем необходимые нам значения
 
- OCL_CHECK(err, err = kernel_var001_urolled.setArg(0, buffer_result));
- OCL_CHECK(err, err = kernel_var001_urolled.setArg(1, buffer_a));
- OCL_CHECK(err, err = kernel_var001_urolled.setArg(2, buffer_b));
- OCL_CHECK(err, err = kernel_var001_urolled.setArg(3, DATA_SIZE));
+ OCL_CHECK(err, err = kernel_var001_unrolled.setArg(0, buffer_result));
+ OCL_CHECK(err, err = kernel_var001_unrolled.setArg(1, buffer_a));
+ OCL_CHECK(err, err = kernel_var001_unrolled.setArg(2, buffer_b));
+ OCL_CHECK(err, err = kernel_var001_unrolled.setArg(3, DATA_SIZE));
 
  // Второй раз копировать память не требуется: DDR память используется всеми ускорителями
  // Запускаем задачу на исполнение и ждем готовности по прерыванию
- OCL_CHECK(err, err = q.enqueueTask(kernel_var001_urolled, nullptr, &event));
+ OCL_CHECK(err, err = q.enqueueTask(kernel_var001_unrolled, nullptr, &event));
  q.finish();
 
  //Читаем метки времени исполнения задачи
@@ -1247,7 +1247,7 @@ int main(int argc, char** argv) {
  OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
  auto unrolled_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001_urolled", unrolled_time);
+ printf("| %-22s  | %23lu |\\n", "var001_unrolled", unrolled_time);
  printf("|-------------------------+-------------------------|\\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
@@ -1334,9 +1334,9 @@ int main(int argc, char** argv) {
 
 Создайте директорию <Название проекта>/libs/common/includes/xcl2 и скачайте в нее файлы (например, в консоли с помощью команды wget, curl или git clone):
 
-*   [https://bmstu.codes/alexbmstu/acceleration\_labs\_2021/-/raw/master/sources/xcl2.cpp](https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/xcl2.cpp)
+*   [https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/xcl2.cpp](https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/xcl2.cpp)
     
-*   [https://bmstu.codes/alexbmstu/acceleration\_labs\_2021/-/raw/master/sources/xcl2.hpp](https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/xcl2.hpp)
+*   [https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/xcl2.hpp](https://bmstu.codes/alexbmstu/acceleration_labs_2021/-/raw/master/sources/xcl2.hpp)
     
 
  
