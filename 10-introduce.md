@@ -429,7 +429,7 @@
 | 1       | R[i] = A[i]/2 + 10                           | SLR0,DDR[0]      |
 | 2       | R[i] = A[i]\*16 + (10<<7)                    | SLR1,DDR[1]      |
 | 3       | R[i] = (A[i] -1)\*4                          | SLR1,DDR[2]      |
-| 4       | R[i] = max(A[i], B[i])                       | SLR2,DDR[3]      |
+| 4       | R[i] = max(A[i], 0xf0f0)                     | SLR2,DDR[3]      |
 | 5       | R[i] = (A[i] + 3) / 2                        | SLR0,DDR[0]      |
 | 6       | R[i] = A[i] & 0xFEDCBA9876543210             | SLR1,DDR[1]      |
 | 7       | R[i] = A[i] & ~ 0xf                          | SLR1,DDR[2]      |
