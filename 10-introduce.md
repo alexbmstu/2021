@@ -2029,7 +2029,7 @@ void var027(int* c, const int* a, const int* b, const int len) {
 **Вариант 28**
 ```
 extern "C" {
-\#define N 64
+ #define N 64
 void var028(int* c, const int* a, const int* b, const int len) {
     int iterations = len / N;
     int tmp_add[N];
