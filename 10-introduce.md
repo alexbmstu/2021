@@ -1880,11 +1880,11 @@ void var019(int* c, const int* a, const int* b, const int len) {
 **Вариант 20**
 ```
 extern "C" {
-\#define N 64
+ #define N 64
 void var020(int* c, const int* a, const int* b, const int len) {
     int iterations = len / N;
-    int tmp_add[N];
-    int tmp_mul[N];
+    int tmpA[N];
+    int tmpB[N];
     for (int i = 0; i < iterations; i++) {
         for (int j = 0; j < N; j++) {
            tmpA[j] = a[i*N+j] + b[i*N+j];
@@ -1904,13 +1904,13 @@ void var020(int* c, const int* a, const int* b, const int len) {
 **Вариант 21**
 ```
 extern "C" {
-\#define MIN 10
-\#define MAX 10000
+ #define MIN 10
+ #define MAX 10000
 void var021(int* c, const int* a, const int* b, const int len) {
     int ptr = 0;
     for (int i = 0; i < len; i++) {
         if (a[i]>=MIN && a[i]<=MAX && b[i]>=MIN && b[i]<=MAX) {
-            c[ptr++] = tmpA + tmpB;
+            c[ptr++] = a[i] + b[i];
         }
      }
 }
@@ -1920,8 +1920,6 @@ void var021(int* c, const int* a, const int* b, const int len) {
 **Вариант 22**
 ```
 extern "C" {
-\#define MIN 10
-\#define MAX 100
 void var022(int* c, const int* a, const int* b, const int len) {
     int mask;
     int high_bit;
@@ -1990,8 +1988,8 @@ void var024(int* c, const int* a, const int* b, const int len) {
 **Вариант 25**
 ```
 extern "C" {
-\#define MIN 10
-\#define MAX 100
+ #define MIN 10
+ #define MAX 100
 void var025(int* c, const int* a, const int* b, const int len) {
     for (int i = 0; i < len; i++) {
         if (a[i]>=MIN && a[i]<=MAX) {
