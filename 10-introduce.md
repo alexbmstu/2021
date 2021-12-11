@@ -799,11 +799,11 @@ char *read_binary_file(const std::string &xclbin_file_name, unsigned &nb)
 {
  if (access(xclbin_file_name.c_str(), R_OK) != 0)
     {
-        printf("ERROR: %s xclbin not available please build\\n", xclbin_file_name.c_str());
+        printf("ERROR: %s xclbin not available please build\n", xclbin_file_name.c_str());
         exit(EXIT_FAILURE);
     }
  //Загружаем содержимое xclbin в буфер и терминируем его
-    std::cout << "INFO: Loading '" << xclbin_file_name << "'\\n";
+    std::cout << "INFO: Loading '" << xclbin_file_name << "'\n";
     std::ifstream bin_file(xclbin_file_name.c_str(), std::ifstream::binary);
     bin_file.seekg(0, bin_file.end);
  nb = bin_file.tellg();
@@ -1124,7 +1124,7 @@ void var001_no_pragmas(int* c, const int* a, const int* b, const int len) {
 
 void verify(const vector<int, aligned_allocator<int> >& gold, const vector<int, aligned_allocator<int> >& out) {
  if (!equal(begin(gold), end(gold), begin(out))) {
- printf("TEST FAILED\\n");
+ printf("TEST FAILED\n");
  exit(EXIT_FAILURE);
  }
 }
@@ -1165,15 +1165,15 @@ int main(int argc, char** argv) {
  std::cout << "Trying to program device[" << i << "]: " << device.getInfo<CL_DEVICE_NAME>() << std::endl;
  program = cl::Program(context, {device}, bins, nullptr, &err);
  if (err != CL_SUCCESS) {
- std::cout << "Failed to program device[" << i << "] with xclbin file!\\n";
+ std::cout << "Failed to program device[" << i << "] with xclbin file!\n";
  } else {
- std::cout << "Device[" << i << "]: program successful!\\n";
+ std::cout << "Device[" << i << "]: program successful!\n";
  valid_device = true;
  break; 
  }
  }
  if (!valid_device) {
- std::cout << "Failed to program any device found, exit!\\n";
+ std::cout << "Failed to program any device found, exit!\n";
  exit(EXIT_FAILURE);
  }
 
@@ -1190,9 +1190,9 @@ int main(int argc, char** argv) {
  var001_no_pragmas(gold.data(), source_a.data(), source_b.data(), DATA_SIZE);
 
  printf(
- "|-------------------------+-------------------------|\\n"
- "| Kernel                  |    Wall-Clock Time (ns) |\\n"
- "|-------------------------+-------------------------|\\n");
+ "|-------------------------+-------------------------|\n"
+ "| Kernel                  |    Wall-Clock Time (ns) |\n"
+ "|-------------------------+-------------------------|\n");
 
 // ------------------------------------------------------------------------------------
 
@@ -1223,8 +1223,8 @@ int main(int argc, char** argv) {
  OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
  auto no_pragmas_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001_no_pragmas", no_pragmas_time);
- printf("|-------------------------+-------------------------|\\n");
+ printf("| %-22s  | %23lu |\n", "var001_no_pragmas", no_pragmas_time);
+ printf("|-------------------------+-------------------------|\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
  OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
@@ -1256,8 +1256,8 @@ int main(int argc, char** argv) {
  OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
  auto unrolled_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001_unrolled", unrolled_time);
- printf("|-------------------------+-------------------------|\\n");
+ printf("| %-22s  | %23lu |\n", "var001_unrolled", unrolled_time);
+ printf("|-------------------------+-------------------------|\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
  OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
@@ -1289,8 +1289,8 @@ int main(int argc, char** argv) {
  OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
  auto pipelined_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001_pipelined", pipelined_time);
- printf("|-------------------------+-------------------------|\\n");
+ printf("| %-22s  | %23lu |\n", "var001_pipelined", pipelined_time);
+ printf("|-------------------------+-------------------------|\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
  OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
@@ -1320,21 +1320,21 @@ int main(int argc, char** argv) {
  OCL_CHECK(err, err = event.getProfilingInfo<uint64_t>(CL_PROFILING_COMMAND_END, &nstimeend));
  auto pipe_unroll_time = nstimeend - nstimestart;
 
- printf("| %-22s  | %23lu |\\n", "var001_pipe_unroll", pipe_unroll_time);
- printf("|-------------------------+-------------------------|\\n");
+ printf("| %-22s  | %23lu |\n", "var001_pipe_unroll", pipe_unroll_time);
+ printf("|-------------------------+-------------------------|\n");
  printf(
  "Note: Wall Clock Time is meaningful for real hardware execution "
- "only, not for emulation.\\n");
+ "only, not for emulation.\n");
  printf(
  "Please refer to profile summary for kernel execution time for "
- "hardware emulation.\\n");
+ "hardware emulation.\n");
 
  // Читаем обратно данные из DDR памяти устройства в буфер результатов
  OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
  q.finish();
  verify(gold, source_results);
 
- printf("TEST PASSED.\\n");
+ printf("TEST PASSED.\n");
  return EXIT_SUCCESS;
 }
 ```
@@ -1960,8 +1960,6 @@ void var023(int* c, const int* a, const int* b, const int len) {
 **Вариант 24**
 ```
 extern "C" {
-\#define MIN 10
-\#define MAX 100
 void var024(int* c, const int* a, const int* b, const int len) {
     int mask;
     int low_bit;
