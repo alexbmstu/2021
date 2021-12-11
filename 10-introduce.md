@@ -1891,10 +1891,10 @@ void var020(int* c, const int* a, const int* b, const int len) {
            tmpB[j] = a[i*N+j] * b[i*N+j];
         }
         for (int j = 0; j < N; j++) {
-           if (tmpA>tmpB) {
-              c[i*N+j] = tmpA;
+           if (tmpA[j]>tmpB[j]) {
+              c[i*N+j] = tmpA[j];
            } else {
-              c[i*N+j] = tmpB;
+              c[i*N+j] = tmpB[j];
            }
         }
 }
