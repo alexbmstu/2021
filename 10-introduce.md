@@ -1967,19 +1967,17 @@ void var023(int* c, const int* a, const int* b, const int len) {
 extern "C" {
 void var024(int* c, const int* a, const int* b, const int len) {
     int mask;
-    int low_bit;
+    int high_bit;
     for (int i = 0; i < len; i++) {
         mask = a[i] & b[i];
-        low_bit = 0;
+        high_bit = 0;
         for (int j = 0; i < 32; i++) {
             if (mask & 0x1) {
-               low_bit = j;
-               break;
-            } else {
-               mask = mask>>1;
-            }
+               high_bit = j;
+            } 
+            mask = mask>>1;
         }
-        c[i] = low_bit;
+        c[i] = high_bit;
      }
 }
 }
