@@ -1991,6 +1991,8 @@ extern "C" {
  #define MIN 10
  #define MAX 100
 void var025(int* c, const int* a, const int* b, const int len) {
+    int tmpA;
+    int tmpB;
     for (int i = 0; i < len; i++) {
         if (a[i]>=MIN && a[i]<=MAX) {
             tmpA = a[i];
