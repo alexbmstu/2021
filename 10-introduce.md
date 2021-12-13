@@ -1971,7 +1971,7 @@ void var024(int* c, const int* a, const int* b, const int len) {
     for (int i = 0; i < len; i++) {
         mask = a[i] & b[i];
         high_bit = 0;
-        for (int j = 0; i < 32; i++) {
+        for (int j = 0; j < 32; j++) {
             if (mask & 0x1) {
                high_bit = j;
             } 
