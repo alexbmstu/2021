@@ -1450,6 +1450,12 @@ int main(int argc, char** argv) {
 
 Выполните сборку проекта <Название проекта>\_system\_hw\_link.
 
+Измениите количество элементов массива в файле host.cpp:
+
+```
+const int DATA_SIZE = 1 << 20;
+```
+
 Для проекта <Название проекта>.prj добавьте путь «${workspace\_loc:${ProjName}/libs/common/includes/xcl2}» в опцию Include.
 
 Выполните сборку проекта <Название проекта>.
